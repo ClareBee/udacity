@@ -42,7 +42,4 @@ export const search = query =>
     body: JSON.stringify({ query })
   })
     .then(res => res.json())
-    .then(data => {
-      console.log("data", data);
-      return data.books;
-    });
+    .then(data => data.books);

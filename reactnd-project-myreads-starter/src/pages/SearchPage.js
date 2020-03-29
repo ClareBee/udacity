@@ -10,7 +10,6 @@ function SearchPage({ handleStatusChange }) {
     if (e.target.value.trim() === "") return setResults([]);
     return BooksAPI.search(e.target.value).then(data => setResults(data));
   };
-  console.log(results.length === 0);
   return (
     <div className="search-books">
       <div className="search-books-bar">
