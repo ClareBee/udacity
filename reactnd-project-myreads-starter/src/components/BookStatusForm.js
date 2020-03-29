@@ -1,13 +1,15 @@
 import React from "react";
 
-const BookStatusForm = ({ handleStatusChange, book }) => {
+function BookStatusForm({ handleStatusChange, book }) {
   const updateStatus = e => {
     e.preventDefault();
     handleStatusChange(book, e.target.value);
   };
+
+  const status = book.shelf ? book.shelf : "move";
   return (
     <div className="book-shelf-changer">
-      <select value={book.shelf} onChange={e => updateStatus(e)}>
+      <select value={status} onChange={e => updateStatus(e)}>
         <option value="move" disabled>
           Move to...
         </option>
@@ -18,6 +20,6 @@ const BookStatusForm = ({ handleStatusChange, book }) => {
       </select>
     </div>
   );
-};
+}
 
 export default BookStatusForm;

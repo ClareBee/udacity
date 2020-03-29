@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import BookShelf from "../components/BookShelf";
+import { formatString } from "../utils/utils";
 
-const BooksList = ({ books, handleStatusChange }) => {
+const SHELVES = ["currentlyReading", "wantToRead", "read"];
+function BooksList({ books, handleStatusChange }) {
   const filterByShelf = (books, shelf) => {
     return books.filter(book => book.shelf === shelf);
   };
+
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -13,21 +16,14 @@ const BooksList = ({ books, handleStatusChange }) => {
       </div>
       <div className="list-books-content">
         <div>
-          <BookShelf
-            books={filterByShelf(books, "currentlyReading")}
-            shelfTitle="Currently Reading"
-            handleStatusChange={handleStatusChange}
-          />
-          <BookShelf
-            books={filterByShelf(books, "wantToRead")}
-            shelfTitle="Want to Read"
-            handleStatusChange={handleStatusChange}
-          />
-          <BookShelf
-            books={filterByShelf(books, "read")}
-            shelfTitle="Read"
-            handleStatusChange={handleStatusChange}
-          />
+          {SHELVES.map(shelf => (
+            <BookShelf
+              key={shelf}
+              books={filterByShelf(books, shelf)}
+              shelfTitle={formatString(shelf)}
+              handleStatusChange={handleStatusChange}
+            />
+          ))}
         </div>
       </div>
       <div className="open-search">
@@ -35,6 +31,6 @@ const BooksList = ({ books, handleStatusChange }) => {
       </div>
     </div>
   );
-};
+}
 
 export default BooksList;
