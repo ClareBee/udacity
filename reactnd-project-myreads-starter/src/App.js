@@ -10,17 +10,20 @@ function BooksApp() {
 
   useEffect(() => {
     BooksAPI.getAll().then(books => setBooks(books));
-  });
+  }, [books]);
 
+  const handleStatusChange = (book, shelf) => {
+    BooksAPI.update(book, shelf);
+  };
   return (
     <div className="app">
       <Router>
         <Switch>
+          <Route exact path="/">
+            <BooksList books={books} handleStatusChange={handleStatusChange} />
+          </Route>
           <Route path="/search">
             <SearchPage books={books} />
-          </Route>
-          <Route exact path="/">
-            <BooksList books={books} />
           </Route>
         </Switch>
       </Router>

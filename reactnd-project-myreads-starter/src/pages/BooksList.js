@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import BookShelf from "../components/BookShelf";
 
-const BooksList = ({ books }) => {
+const BooksList = ({ books, handleStatusChange }) => {
   const filterByShelf = (books, shelf) => {
     return books.filter(book => book.shelf === shelf);
   };
@@ -16,12 +16,18 @@ const BooksList = ({ books }) => {
           <BookShelf
             books={filterByShelf(books, "currentlyReading")}
             shelfTitle="Currently Reading"
+            handleStatusChange={handleStatusChange}
           />
           <BookShelf
             books={filterByShelf(books, "wantToRead")}
             shelfTitle="Want to Read"
+            handleStatusChange={handleStatusChange}
           />
-          <BookShelf books={filterByShelf(books, "read")} shelfTitle="Read" />
+          <BookShelf
+            books={filterByShelf(books, "read")}
+            shelfTitle="Read"
+            handleStatusChange={handleStatusChange}
+          />
         </div>
       </div>
       <div className="open-search">

@@ -1,6 +1,7 @@
 import React from "react";
 import BookStatusForm from "./BookStatusForm";
-const Book = ({ cover, title, authors, shelf }) => {
+const Book = ({ book, handleStatusChange }) => {
+  const { title, authors, imageLinks, shelf } = book;
   return (
     <li>
       <div className="book">
@@ -10,10 +11,10 @@ const Book = ({ cover, title, authors, shelf }) => {
             style={{
               width: 128,
               height: 192,
-              backgroundImage: `url(${cover})`
+              backgroundImage: `url(${imageLinks.smallThumbnail})`
             }}
           ></div>
-          <BookStatusForm status={shelf} />
+          <BookStatusForm book={book} handleStatusChange={handleStatusChange} />
         </div>
         <div className="book-title">{title}</div>
         <div className="book-authors">
