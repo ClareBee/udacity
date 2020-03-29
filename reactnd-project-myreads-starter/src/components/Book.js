@@ -19,8 +19,14 @@ function Book({ book, handleStatusChange }) {
         </div>
         <div className="book-title">{title}</div>
         <div className="book-authors">
-          <ul>
-            {authors && authors.map(author => <li key={author}>{author}</li>)}
+          <ul className="book-authors-list">
+            {authors &&
+              authors.map(author => (
+                <li key={author}>
+                  <span className="author-span">- </span>
+                  {author}
+                </li>
+              ))}
           </ul>
         </div>
       </div>
