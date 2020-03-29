@@ -1,9 +1,13 @@
 import React from "react";
 
-const BookStatusForm = () => {
+const BookStatusForm = ({ handleStatusChange, book }) => {
+  const updateStatus = e => {
+    e.preventDefault();
+    handleStatusChange(book, e.target.value);
+  };
   return (
     <div className="book-shelf-changer">
-      <select>
+      <select value={book.shelf} onChange={e => updateStatus(e)}>
         <option value="move" disabled>
           Move to...
         </option>
