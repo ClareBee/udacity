@@ -17,10 +17,16 @@
 - **Home page**: displays books on relevant shelves ('Currently reading', 'Want to Read', 'Read'), with ability to change status via a select dropdown
 - **Search page**: ability to search (according to prescribed set of search terms) and add books to shelves
 
+---
+
 ### Home Page
+
+---
 
 <img src="./public/home_page.jpg" alt="home page" />
 
 ### Search Page
+
+---
 
 <img src="./public/search_page.jpg" alt="search page"/>
