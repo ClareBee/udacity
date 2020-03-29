@@ -1,6 +1,6 @@
 import React from "react";
 import BookStatusForm from "./BookStatusForm";
-const Book = ({ cover, title, authors, status }) => {
+const Book = ({ cover, title, authors, shelf }) => {
   return (
     <li>
       <div className="book">
@@ -13,7 +13,7 @@ const Book = ({ cover, title, authors, status }) => {
               backgroundImage: `url(${cover})`
             }}
           ></div>
-          <BookStatusForm />
+          <BookStatusForm status={shelf} />
         </div>
         <div className="book-title">{title}</div>
         <div className="book-authors">

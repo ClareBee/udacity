@@ -15,6 +15,7 @@ const BookShelf = ({ shelfTitle, books }) => {
                 title={book.title}
                 authors={book.authors}
                 cover={book.imageLinks.smallThumbnail}
+                shelf={book.shelf}
               />
             ))}
         </ol>
