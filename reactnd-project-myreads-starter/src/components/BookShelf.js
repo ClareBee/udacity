@@ -1,7 +1,7 @@
 import React from "react";
 import Book from "./Book";
 
-const BookShelf = ({ shelfTitle, books, handleStatusChange }) => {
+function BookShelf({ shelfTitle, books, handleStatusChange }) {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{shelfTitle}</h2>
@@ -21,6 +21,6 @@ const BookShelf = ({ shelfTitle, books, handleStatusChange }) => {
       </div>
     </div>
   );
-};
+}
 
 export default BookShelf;

@@ -7,13 +7,15 @@ import BooksList from "./pages/BooksList";
 
 function BooksApp() {
   const [books, setBooks] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     BooksAPI.getAll().then(books => setBooks(books));
-  }, [books]);
+  }, [refresh]);
 
   const handleStatusChange = (book, shelf) => {
     BooksAPI.update(book, shelf);
+    setRefresh(!refresh);
   };
   return (
     <div className="app">
@@ -23,7 +25,7 @@ function BooksApp() {
             <BooksList books={books} handleStatusChange={handleStatusChange} />
           </Route>
           <Route path="/search">
-            <SearchPage books={books} />
+            <SearchPage books={books} handleStatusChange={handleStatusChange} />
           </Route>
         </Switch>
       </Router>
