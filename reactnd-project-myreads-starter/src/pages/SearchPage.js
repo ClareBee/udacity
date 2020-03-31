@@ -1,15 +1,35 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import * as BooksAPI from "../BooksAPI";
 import Book from "../components/Book";
 
-function SearchPage({ handleStatusChange }) {
+function SearchPage({ books, handleStatusChange }) {
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const handleSearchQuery = e => {
     e.preventDefault();
-    if (e.target.value.trim() === "") return setResults([]);
-    return BooksAPI.search(e.target.value).then(data => setResults(data));
+    setQuery(e.target.value);
   };
+
+  React.useEffect(() => {
+    BooksAPI.search(query).then(data => {
+      if (query.trim() === "") return setResults([]);
+      const formattedResults = data.map(apiBook => {
+        const matchingBook = books.find(book => book.id === apiBook.id);
+        if (matchingBook) {
+          return Object.assign(
+            {},
+            { ...apiBook },
+            { shelf: matchingBook.shelf }
+          );
+        }
+        return Object.assign({}, { ...apiBook }, { shelf: "none" });
+      });
+      setResults(formattedResults);
+    });
+  }, [query]);
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -19,8 +39,9 @@ function SearchPage({ handleStatusChange }) {
         <div className="search-books-input-wrapper">
           <input
             type="text"
+            value={query}
             placeholder="Search by title or author"
-            onChange={e => handleSearchQuery(e)}
+            onChange={handleSearchQuery}
           />
         </div>
       </div>
@@ -45,4 +66,7 @@ function SearchPage({ handleStatusChange }) {
   );
 }
 
+SearchPage.propTypes = {
+  handleStatusChange: PropTypes.func.isRequired
+};
 export default SearchPage;
