@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 function BookStatusForm({ handleStatusChange, book }) {
   const updateStatus = e => {
     e.preventDefault();
@@ -21,5 +21,12 @@ function BookStatusForm({ handleStatusChange, book }) {
     </div>
   );
 }
+
+BookStatusForm.propTypes = {
+  handleStatusChange: PropTypes.func.isRequired,
+  book: PropTypes.shape({
+    shelf: PropTypes.string
+  })
+};
 
 export default BookStatusForm;

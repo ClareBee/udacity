@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import BookStatusForm from "./BookStatusForm";
 function Book({ book, handleStatusChange }) {
   const { title, authors, imageLinks } = book;
@@ -34,4 +35,11 @@ function Book({ book, handleStatusChange }) {
   );
 }
 
+Book.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    imageLinks: PropTypes.object,
+    authors: PropTypes.array
+  })
+};
 export default Book;
