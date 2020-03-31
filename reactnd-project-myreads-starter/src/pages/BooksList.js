@@ -1,12 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import BookShelf from "../components/BookShelf";
-import { formatString } from "../utils/utils";
 
-const SHELVES = ["currentlyReading", "wantToRead", "read"];
+const SHELVES = [
+  { display: "Currently Reading", variable: "currentlyReading" },
+  { display: "Want to Read", variable: "wantToRead" },
+  { display: "Read", variable: "read" }
+];
 function BooksList({ books, handleStatusChange }) {
-  const filterByShelf = (books, shelf) => {
-    return books.filter(book => book.shelf === shelf);
+  const filterByShelf = (books, shelfTitle) => {
+    return books.filter(book => book.shelf === shelfTitle);
   };
 
   return (
@@ -16,11 +20,11 @@ function BooksList({ books, handleStatusChange }) {
       </div>
       <div className="list-books-content">
         <div>
-          {SHELVES.map(shelf => (
+          {SHELVES.map(({ display, variable }) => (
             <BookShelf
-              key={shelf}
-              books={filterByShelf(books, shelf)}
-              shelfTitle={formatString(shelf)}
+              key={variable}
+              books={filterByShelf(books, variable)}
+              shelfTitle={display}
               handleStatusChange={handleStatusChange}
             />
           ))}
@@ -34,5 +38,10 @@ function BooksList({ books, handleStatusChange }) {
     </div>
   );
 }
+
+BooksList.propsTypes = {
+  books: PropTypes.array,
+  handleStatusChange: PropTypes.func.isRequired
+};
 
 export default BooksList;
