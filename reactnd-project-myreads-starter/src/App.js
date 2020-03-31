@@ -7,15 +7,22 @@ import BooksList from "./pages/BooksList";
 
 function BooksApp() {
   const [books, setBooks] = useState([]);
-  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     BooksAPI.getAll().then(books => setBooks(books));
-  }, [refresh]);
+  }, []);
+  const updateLocalState = (selectedBook, bookShelf) => {
+    const bookToUpdate = books.filter(book => book.id === selectedBook.id)[0];
+    if (!bookToUpdate) return;
+    bookToUpdate.shelf = bookShelf;
+    const updatedBooks = [...books, selectedBook];
+    setBooks(updatedBooks);
+  };
 
   const handleStatusChange = (book, shelf) => {
     BooksAPI.update(book, shelf);
-    setRefresh(!refresh);
+    updateLocalState(book, shelf);
+    // setRefresh(!refresh);
   };
   return (
     <div className="app">
