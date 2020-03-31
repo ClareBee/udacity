@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Book from "./Book";
 
 function BookShelf({ shelfTitle, books, handleStatusChange }) {
@@ -13,7 +14,6 @@ function BookShelf({ shelfTitle, books, handleStatusChange }) {
               <Book
                 key={book.id}
                 book={book}
-                shelf={book.shelf}
                 handleStatusChange={handleStatusChange}
               />
             ))}
@@ -22,5 +22,11 @@ function BookShelf({ shelfTitle, books, handleStatusChange }) {
     </div>
   );
 }
+
+BookShelf.propTypes = {
+  shelfTitle: PropTypes.string.isRequired,
+  books: PropTypes.array,
+  handleStatusChange: PropTypes.func.isRequired
+};
 
 export default BookShelf;
