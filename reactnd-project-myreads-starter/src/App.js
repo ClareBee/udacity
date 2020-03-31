@@ -22,7 +22,6 @@ function BooksApp() {
   const handleStatusChange = (book, shelf) => {
     BooksAPI.update(book, shelf);
     updateLocalState(book, shelf);
-    // setRefresh(!refresh);
   };
   return (
     <div className="app">
