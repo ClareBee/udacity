@@ -300,3 +300,46 @@ Initializing state in the store:
 2. default state param inside reducers
 
 See: https://redux.js.org/recipes/structuring-reducers/initializing-state
+
+Middleware's currying pattern:
+
+```javascript
+const logger = store => next => action => {
+  // ...
+};
+```
+
+> The variable logger is assigned to a function that takes the store as its argument. That function returns another function, which is passed next (which is the next middleware in line or the dispatch function). That other function return another function which is passed an action. Once inside that third function, we have access to store, next, and action.
+
+> It’s important to note that the value of the next parameter will be determined by the applyMiddleware function. Why? All middleware will be called in the order it is listed in that function.
+
+From Udacity:
+"If the thunk middleware sees an action, that action will be sent to the next middleware in line - the logger middleware. If it sees a function, the thunk middleware will call that function. That function can contain side effects - such as API calls - and dispatch actions, simple Javascript objects. These dispatched actions will again go to all of the middleware. The thunk middleware will see that it’s a simple action and pass the action on to the next middleware, the logger."
+
+- middlware called in order it's passed to Redux's `applyMiddleware`
+  
+#### Connect
+- `connect()(MyApp)` upgrades component to container=> read state from store & dispatch actions. 
+  `connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])`
+
+**mapStateToProps**
+`mapStateToProps(state, [ownProps])`
+   - state is the state inside the store (use destructuring to just pass what the component needs)
+  - ownProps passed to this component from parent
+e.g.
+```javascript
+function mapStateToProps( {tweets} ){
+  return { tweetIds: Object.keys(tweets) };
+}
+```
+(tweets is the slice of state this component needs, tweetIDs is the property on this container)
+  - enables component to subscribe to Redux store updates
+  - any time store is updated, mapStateToProps will be called
+  - returns plain object merged into components props
+  - to not subscribe, pass null or undefined instead 
+  
+**mapDispatchToProps**
+  - If an **object** is passed, each function inside it is assumed to be a Redux action creator.
+  - returns object w same function names, but with every action creator wrapped into a dispatch call so they may be invoked directly
+  - this will be merged into  component’s props.
+  - If a **function** is passed, it will be given dispatch as the first parameter. It’s up to you to return an object that somehow uses dispatch to bind action creators in your own way. (Tip: you may use the bindActionCreators() helper from Redux.)
