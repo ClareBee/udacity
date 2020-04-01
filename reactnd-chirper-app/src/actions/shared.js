@@ -5,11 +5,9 @@ import { setAuthedUser } from "./authedUser";
 
 // hard-coded for demo purposes
 const AUTHED_ID = "sarah_edo";
-export function handleInitialData() {
-  dispatch =>
-    getInitialData().then(({ users, tweets }) => {
-      dispatch(receiveUsers(users));
-      dispatch(receiveTweets(tweets));
-      dispatch(setAuthedUser(AUTHED_ID));
-    });
-}
+export const handleInitialData = () => dispatch =>
+  getInitialData().then(({ users, tweets }) => {
+    dispatch(receiveUsers(users));
+    dispatch(receiveTweets(tweets));
+    dispatch(setAuthedUser(AUTHED_ID));
+  });
