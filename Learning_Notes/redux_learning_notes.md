@@ -284,3 +284,19 @@ function handleInitialData() {
   return dispatch => {};
 }
 ```
+
+#### Reducers
+
+- how an app's state changes
+- use ... spread operator to maintain immutability: pure functions w no side effects, easier to debug, safer data handling, react-redux uses shallow equality checking so needs immutability to work
+
+```javascript
+(previousState, action) => newState;
+```
+
+Initializing state in the store:
+
+1. pass initial state as `preloadedState` to the `createStore` function
+2. default state param inside reducers
+
+See: https://redux.js.org/recipes/structuring-reducers/initializing-state
