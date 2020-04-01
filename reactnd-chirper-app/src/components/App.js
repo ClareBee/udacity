@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
+import LoadingBar from "react-redux-loading";
 import Dashboard from "./Dashboard";
 
 class App extends Component {
@@ -8,7 +9,9 @@ class App extends Component {
     this.props.dispatch(handleInitialData());
   }
   render() {
-    return <div>{this.props.loading === true ? null : <Dashboard />}</div>;
+    return (
+      <div>{this.props.loading === true ? <LoadingBar /> : <Dashboard />}</div>
+    );
   }
 }
 
@@ -17,4 +20,4 @@ function mapStateToProps({ authedUser }) {
     loading: authedUser === null
   };
 }
-export default connect()(App);
+export default connect(mapStateToProps)(App);
