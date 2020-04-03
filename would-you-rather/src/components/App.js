@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { handleInitialData } from "../actions/shared";
 import { connect } from "react-redux";
-import Homepage from "./Homepage";
-import Leaderboard from "./Leaderboard";
-import NewQuestion from "./NewQuestion";
-import Nav from "./Nav";
-import Footer from "./Footer";
+import HomePage from "./pages/HomePage";
+import Leaderboard from "./pages/Leaderboard";
+import NewQuestion from "./questions/NewQuestion";
+import QuestionPage from "./pages/QuestionPage";
+import NoMatch from "./pages/NoMatch";
+import Nav from "./layouts/Nav";
+import Footer from "./layouts/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App({ dispatch, loading }) {
@@ -19,15 +21,14 @@ function App({ dispatch, loading }) {
         <Nav />
         {loading === true ? null : (
           <Switch>
-            <Route path="/leaderboard">
-              <Leaderboard />
-            </Route>
-            <Route path="/new-question">
-              <NewQuestion />
-            </Route>
-            <Route path="/">
-              <Homepage />
-            </Route>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/questions/:id" component={QuestionPage} />
+
+            <Route path="/leaderboard" component={Leaderboard} />
+
+            <Route path="/new-question" component={NewQuestion} />
+
+            <Route component={NoMatch} />
           </Switch>
         )}
         <Footer />
