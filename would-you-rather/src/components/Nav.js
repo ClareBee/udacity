@@ -9,7 +9,10 @@ function Nav() {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/leaderboard">About</Link>
+          <Link to="/leaderboard">Leaderboard</Link>
+        </li>
+        <li>
+          <Link to="/new-question">New Question</Link>
         </li>
       </ul>
     </nav>

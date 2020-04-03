@@ -1,7 +1,7 @@
 import React from "react";
 
 function QuestionList() {
-  return <di>Read and unread questions</di>;
+  return <div>Read and unread questions</div>;
 }
 
 export default QuestionList;

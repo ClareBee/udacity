@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import QuestionList from "./QuestionList";
 
 import Question from "./Question";
