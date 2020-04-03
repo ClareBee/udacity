@@ -21,7 +21,7 @@ function App({ dispatch, loading }) {
   console.log("loading", loading);
   useEffect(() => {
     dispatch(handleInitialData());
-    setIsLoggedIn(false);
+    setIsLoggedIn(true);
   }, [dispatch, loading]);
 
   useEffect(() => {
