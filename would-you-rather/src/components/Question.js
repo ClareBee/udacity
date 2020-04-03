@@ -1,7 +1,8 @@
 import React from "react";
-
+import { useParams } from "react-router-dom";
 function Question() {
-  return <div>Question</div>;
+  let { questionId } = useParams();
+  return <h3>Requested question ID: {questionId}</h3>;
 }
 
 export default Question;
