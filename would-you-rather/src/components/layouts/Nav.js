@@ -12,7 +12,7 @@ function Nav() {
           <Link to="/leaderboard">Leaderboard</Link>
         </li>
         <li>
-          <Link to="/new-question">New Question</Link>
+          <Link to="/add">New Poll</Link>
         </li>
       </ul>
     </nav>

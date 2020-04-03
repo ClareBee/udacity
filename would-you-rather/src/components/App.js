@@ -26,7 +26,7 @@ function App({ dispatch, loading }) {
 
             <Route path="/leaderboard" component={Leaderboard} />
 
-            <Route path="/new-question" component={NewQuestion} />
+            <Route path="/add" component={NewQuestion} />
 
             <Route component={NoMatch} />
           </Switch>
