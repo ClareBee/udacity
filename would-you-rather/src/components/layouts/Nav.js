@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-function Nav() {
+function Nav({ authedUser }) {
+  const handleLogout = e => {
+    e.preventDefault();
+    //dispatch logout action and redirect to signin page
+  };
+
   return (
     <nav>
       <ul>
@@ -14,9 +20,27 @@ function Nav() {
         <li>
           <Link to="/add">New Poll</Link>
         </li>
+        <li>
+          {authedUser ? (
+            <>
+              <span>{authedUser}</span>
+              <form onSubmit={handleLogout}>
+                <button type="submit">Logout</button>
+              </form>
+            </>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
+        </li>
       </ul>
     </nav>
   );
 }
 
-export default Nav;
+function mapStateToProps({ authedUser }) {
+  return {
+    authedUser
+  };
+}
+
+export default connect(mapStateToProps)(Nav);
