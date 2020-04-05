@@ -21,7 +21,7 @@ function Homepage({ answered, unanswered, errors }) {
             <div onClick={e => handleTabChange(e, "answered")}>Answered</div>
           </div>
           {activeTab === "unanswered" ? (
-            <QuestionList questionIds={[]} />
+            <QuestionList questionIds={unanswered} />
           ) : (
             <QuestionList questionIds={answered} />
           )}
