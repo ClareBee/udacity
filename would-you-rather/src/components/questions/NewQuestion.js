@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleAddQuestion } from "../../actions/shared";
 
-function NewQuestion({ dispatch }) {
+function NewQuestion({ dispatch, authedUser }) {
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
 
@@ -26,6 +26,12 @@ function NewQuestion({ dispatch }) {
   const missingValues = () => {
     return optionOneText === "" || optionTwoText === "";
   };
+
+  if (!authedUser) {
+    console.log("should be here");
+    return <Redirect to="/login" />;
+  }
+
   return (
     <div>
       <h3>New Question</h3>
@@ -50,4 +56,10 @@ function NewQuestion({ dispatch }) {
   );
 }
 
-export default connect()(NewQuestion);
+function mapStateToProps({ authedUser }) {
+  return {
+    authedUser
+  };
+}
+
+export default connect(mapStateToProps)(NewQuestion);

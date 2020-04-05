@@ -23,15 +23,15 @@ function App({ dispatch, loading, authedUser }) {
     dispatch(handleInitialData());
   }, [dispatch, loading]);
 
-  useEffect(() => {
-    if (authedUser) {
-      console.log("woops");
-      setIsLoggedIn(true);
-    }
-    if (!isLoggedIn) {
-      console.log("not logged in");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (authedUser) {
+  //     console.log("woops");
+  //     setIsLoggedIn(true);
+  //   }
+  //   if (!isLoggedIn) {
+  //     console.log("not logged in");
+  //   }
+  // }, []);
   return (
     <Router>
       <div>
@@ -41,18 +41,13 @@ function App({ dispatch, loading, authedUser }) {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/questions/:id" component={QuestionPage} />
-            {isLoggedIn ? (
-              <>
-                <Route path="/leaderboard" component={Leaderboard} />
 
-                <Route path="/add" component={NewQuestion} />
-              </>
-            ) : (
-              <>
-                <Redirect to="/login" />
-                <Route path="/login" component={LogIn} />
-              </>
-            )}
+            <Route path="/leaderboard" component={Leaderboard} />
+
+            <Route path="/add" component={NewQuestion} />
+
+            <Route path="/login" component={LogIn} />
+
             <Route component={NoMatch} />
           </Switch>
         )}
