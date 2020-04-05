@@ -1,18 +1,49 @@
-import { getInitialData, saveQuestion, saveQuestionAnswer } from "../utils/api";
+import {
+  getInitialData,
+  saveQuestion,
+  saveQuestionAnswer,
+  verifyUser
+} from "../utils/api";
 import { receiveUsers, updateUserAnswers, updateUserQuestions } from "./users";
 import { receiveQuestions, addQuestion, updateQuestion } from "./questions";
-import { setAuthedUser } from "./authedUser";
+import { logIn } from "./authedUser";
+import { logInError, systemError } from "./errors";
 import { showLoading, hideLoading } from "react-redux-loading";
 
 export function handleInitialData() {
   return dispatch => {
     dispatch(showLoading());
 
-    return getInitialData().then(({ users, questions }) => {
-      dispatch(receiveUsers(users));
-      dispatch(receiveQuestions(questions));
-      dispatch(hideLoading());
-    });
+    return getInitialData()
+      .then(({ users, questions, errors }) => {
+        // handle errors from Promise.all
+        if (errors) {
+          return dispatch(systemError(errors));
+        }
+        dispatch(receiveUsers(users));
+        dispatch(receiveQuestions(questions));
+        dispatch(hideLoading());
+      })
+      .catch(err => dispatch(systemError(err)));
+  };
+}
+
+export function handleLogin(info) {
+  return dispatch => {
+    dispatch(showLoading());
+
+    return verifyUser(info)
+      .then(user => {
+        if (user) {
+          dispatch(logInError(null));
+          dispatch(logIn(user));
+          dispatch(hideLoading());
+        }
+      })
+      .catch(err => {
+        dispatch(hideLoading());
+        dispatch(logInError(err));
+      });
   };
 }
 
@@ -27,11 +58,14 @@ export function handleAddQuestion(question) {
       author: authedUser
     })
       .then(question => {
-        console.log("question added", question);
         dispatch(addQuestion(question));
         dispatch(updateUserQuestions(question));
       })
-      .then(dispatch(hideLoading()));
+      .then(dispatch(hideLoading()))
+      .catch(err => {
+        dispatch(systemError(err));
+        dispatch(hideLoading());
+      });
   };
 }
 

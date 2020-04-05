@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { handleLogin } from "../../actions/authedUser";
+import { handleLogin } from "../../actions/shared";
 import { Redirect } from "react-router-dom";
 
-function LogIn({ dispatch, authedUser, location }) {
+function LogIn({ dispatch, authedUser, location, errors }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
-  console.log("location", location);
+
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(handleLogin({ email, password }));
@@ -16,17 +16,24 @@ function LogIn({ dispatch, authedUser, location }) {
   };
 
   useEffect(() => {
-    console.log("using effect");
-    if (location.state.message) {
-      console.log("setting message");
+    if (authedUser) {
+      return <Redirect to="/" />;
+    }
+    // override previous uncleared errors on route change
+    setMessage(null);
+
+    // capture message from any redirects from protected routes
+    if (location.state && location.state.message) {
       setMessage(location.state.message);
     }
+
+    // clear error notification after 3 seconds
     const errorMsg = setTimeout(() => {
-      console.log("inside timeout");
       setMessage(null);
     }, 3000);
+
     return () => clearTimeout(errorMsg);
-  }, [location]);
+  }, [location.state, authedUser]);
 
   // TODO refactor into generic
   const handlePasswordChange = e => {
@@ -48,7 +55,7 @@ function LogIn({ dispatch, authedUser, location }) {
   return (
     <div>
       Login
-      <div>{message}</div>
+      <div>{message || errors}</div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -72,9 +79,10 @@ function LogIn({ dispatch, authedUser, location }) {
   );
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ authedUser, errors }) {
   return {
-    authedUser
+    authedUser,
+    errors
   };
 }
 

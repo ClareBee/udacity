@@ -1,13 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter, useRouteMatch } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 function Question({ question, author }) {
   const { id, timestamp, optionOne, optionTwo } = question;
   const { name, avatarURL } = author;
-  console.log("me again");
-  let { url, path } = useRouteMatch();
-  console.log("url", url);
 
   return (
     <div>

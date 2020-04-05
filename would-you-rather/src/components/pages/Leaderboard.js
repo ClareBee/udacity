@@ -5,7 +5,14 @@ import UserProfile from "../UserProfile";
 
 function Leaderboard({ userIds, authedUser }) {
   if (!authedUser) {
-    return <Redirect to="/login" />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: { message: "You must be logged in to see the leaderboard" }
+        }}
+      />
+    );
   }
   if (userIds.length === 0) return <div>No users</div>;
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { handleInitialData } from "../actions/shared";
 import { connect } from "react-redux";
 import LogIn from "./pages/LogIn";
@@ -9,29 +9,14 @@ import QuestionPage from "./pages/QuestionPage";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./layouts/Nav";
 import Footer from "./layouts/Footer";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App({ dispatch, loading, authedUser }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   console.log("loading", loading);
   useEffect(() => {
     dispatch(handleInitialData());
   }, [dispatch, loading]);
 
-  // useEffect(() => {
-  //   if (authedUser) {
-  //     console.log("woops");
-  //     setIsLoggedIn(true);
-  //   }
-  //   if (!isLoggedIn) {
-  //     console.log("not logged in");
-  //   }
-  // }, []);
   return (
     <Router>
       <div>

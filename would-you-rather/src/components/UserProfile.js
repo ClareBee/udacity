@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 function UserProfile({ user }) {
   console.log("user", user);
-  const { id, name, avatarURL, questions, answers } = user;
+  const { name, avatarURL, questions, answers } = user;
   const numOfAnswers = Object.keys(answers).length;
   return (
     <div>

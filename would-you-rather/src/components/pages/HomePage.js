@@ -2,25 +2,28 @@ import React from "react";
 import { connect } from "react-redux";
 import QuestionList from "../questions/QuestionList";
 
-function Homepage({ answered, unanswered }) {
+function Homepage({ answered, unanswered, errors }) {
   return (
     <div>
       <h2>Questions</h2>
-      <div>
+      {errors && <p>{errors}</p>}
+      {!errors && (
         <div>
-          Unanswered
-          <QuestionList questionIds={unanswered} />
+          <div>
+            Unanswered
+            <QuestionList questionIds={unanswered} />
+          </div>
+          <div>
+            Answered
+            <QuestionList questionIds={answered} />
+          </div>
         </div>
-        <div>
-          Answered
-          <QuestionList questionIds={answered} />
-        </div>
-      </div>
+      )}
     </div>
   );
 }
 
-function mapStateToProps({ questions }) {
+function mapStateToProps({ questions, errors }) {
   // TODO: sort by date NB
   const questionKeys = Object.keys(questions);
   const answered = questionKeys
@@ -31,16 +34,17 @@ function mapStateToProps({ questions }) {
       ) {
         return question;
       }
+      return null;
     })
-    .filter(questionId => questionId !== undefined);
+    .filter(questionId => !!questionId);
   const unanswered = questionKeys.filter(questionKey => {
-    if (answered.includes(questionKey)) return;
+    if (answered.includes(questionKey)) return null;
     return questionKey;
   });
-
   return {
     answered,
-    unanswered
+    unanswered,
+    errors
   };
 }
 export default connect(mapStateToProps)(Homepage);

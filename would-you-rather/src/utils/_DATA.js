@@ -134,12 +134,13 @@ function generateUID() {
 export function _verifyUser(userInput) {
   return new Promise((res, rej) => {
     setTimeout(() => {
-      const dbUsers = Object.keys(users).map(user => {
+      const checkedDbUsers = Object.keys(users).map(user => {
         if (users[user].email === userInput.email) {
           return user;
         }
+        return null;
       });
-      const dbUser = dbUsers.find(user => user !== undefined);
+      const dbUser = checkedDbUsers.find(user => !!user);
       if (dbUser && users[dbUser].password === userInput.password) {
         return res({ authedUser: dbUser });
       }
@@ -149,7 +150,13 @@ export function _verifyUser(userInput) {
 }
 export function _getUsers() {
   return new Promise((res, rej) => {
-    setTimeout(() => res({ ...users }), 1000);
+    setTimeout(() => {
+      if (Object.keys(users).length === 0) {
+        console.log("no users");
+        return rej({ errors: "No users on the system" });
+      }
+      return res({ ...users });
+    }, 1000);
   });
 }
 
@@ -178,9 +185,7 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
 export function _saveQuestion(question) {
   return new Promise((res, rej) => {
     const authedUser = question.author;
-    console.log("authedUser", question.author);
     const formattedQuestion = formatQuestion(question);
-    console.log("hi there", users);
     setTimeout(() => {
       questions = {
         ...questions,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleLogout } from "../../actions/authedUser";
 
@@ -14,13 +14,13 @@ function Nav({ dispatch, authedUser }) {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <Link to="/leaderboard">Leaderboard</Link>
+          <NavLink to="/leaderboard">Leaderboard</NavLink>
         </li>
         <li>
-          <Link to="/add">New Poll</Link>
+          <NavLink to="/add">New Poll</NavLink>
         </li>
         <li>
           {authedUser ? (
@@ -31,7 +31,7 @@ function Nav({ dispatch, authedUser }) {
               </form>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <NavLink to="/login">Login</NavLink>
           )}
         </li>
       </ul>

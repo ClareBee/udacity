@@ -9,9 +9,7 @@ function NewQuestion({ dispatch, authedUser }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // send option1 and option2 text in object
     dispatch(handleAddQuestion({ optionOneText, optionTwoText }));
-    // redirect to home page
   };
 
   // TODO: refactor to be generic and use in other form too
@@ -29,7 +27,14 @@ function NewQuestion({ dispatch, authedUser }) {
 
   if (!authedUser) {
     console.log("should be here");
-    return <Redirect to="/login" />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: { message: "You must be logged in to make a new poll" }
+        }}
+      />
+    );
   }
 
   return (
