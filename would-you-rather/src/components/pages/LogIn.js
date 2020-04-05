@@ -16,9 +16,6 @@ function LogIn({ dispatch, authedUser, location, errors }) {
   };
 
   useEffect(() => {
-    if (authedUser) {
-      return <Redirect to="/" />;
-    }
     // override previous uncleared errors on route change
     setMessage(null);
 
@@ -47,7 +44,6 @@ function LogIn({ dispatch, authedUser, location, errors }) {
   const missingValues = () => {
     return password === "" || email === "";
   };
-  console.log(missingValues);
 
   if (authedUser) {
     return <Redirect to="/" />;

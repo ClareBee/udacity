@@ -26,7 +26,11 @@ function Homepage({ answered, unanswered, errors }) {
 function mapStateToProps({ questions, errors }) {
   // TODO: sort by date NB
   const questionKeys = Object.keys(questions);
-  const answered = questionKeys
+  const sortedQuestionKeys = questionKeys.sort(
+    (a, b) => questions[b].timestamp - questions[a].timestamp
+  );
+  console.log(sortedQuestionKeys);
+  const answered = sortedQuestionKeys
     .map(question => {
       if (
         questions[question]["optionOne"]["votes"].length !== 0 ||
@@ -37,7 +41,7 @@ function mapStateToProps({ questions, errors }) {
       return null;
     })
     .filter(questionId => !!questionId);
-  const unanswered = questionKeys.filter(questionKey => {
+  const unanswered = sortedQuestionKeys.filter(questionKey => {
     if (answered.includes(questionKey)) return null;
     return questionKey;
   });

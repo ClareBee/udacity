@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { handleInitialData } from "../actions/shared";
 import { connect } from "react-redux";
+import LoadingBar from "react-redux-loading";
 import LogIn from "./pages/LogIn";
 import HomePage from "./pages/HomePage";
 import Leaderboard from "./pages/Leaderboard";
@@ -21,7 +22,7 @@ function App({ dispatch, loading, authedUser }) {
     <Router>
       <div>
         <Nav />
-
+        <LoadingBar />
         {loading === true ? null : (
           <Switch>
             <Route exact path="/" component={HomePage} />

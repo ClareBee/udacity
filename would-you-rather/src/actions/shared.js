@@ -16,15 +16,20 @@ export function handleInitialData() {
 
     return getInitialData()
       .then(({ users, questions, errors }) => {
+        dispatch(hideLoading());
+
         // handle errors from Promise.all
         if (errors) {
-          return dispatch(systemError(errors));
+          dispatch(systemError(errors));
+        } else {
+          dispatch(receiveUsers(users));
+          dispatch(receiveQuestions(questions));
         }
-        dispatch(receiveUsers(users));
-        dispatch(receiveQuestions(questions));
-        dispatch(hideLoading());
       })
-      .catch(err => dispatch(systemError(err)));
+      .catch(err => {
+        dispatch(hideLoading());
+        dispatch(systemError(err));
+      });
   };
 }
 
@@ -34,11 +39,9 @@ export function handleLogin(info) {
 
     return verifyUser(info)
       .then(user => {
-        if (user) {
-          dispatch(logInError(null));
-          dispatch(logIn(user));
-          dispatch(hideLoading());
-        }
+        dispatch(logInError(null));
+        dispatch(logIn(user));
+        dispatch(hideLoading());
       })
       .catch(err => {
         dispatch(hideLoading());
