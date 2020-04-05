@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { handleAddQuestion } from "../../actions/questions";
+import { handleAddQuestion } from "../../actions/shared";
 
 function NewQuestion({ dispatch }) {
   const [optionOneText, setOptionOneText] = useState("");

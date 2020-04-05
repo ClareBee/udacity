@@ -21,7 +21,7 @@ function App({ dispatch, loading }) {
   console.log("loading", loading);
   useEffect(() => {
     dispatch(handleInitialData());
-    setIsLoggedIn(true);
+    setIsLoggedIn(false);
   }, [dispatch, loading]);
 
   useEffect(() => {
@@ -31,29 +31,30 @@ function App({ dispatch, loading }) {
   });
   return (
     <Router>
-      {isLoggedIn ? (
-        <div>
-          <Nav />
+      <div>
+        <Nav />
 
-          {loading === true ? null : (
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/questions/:id" component={QuestionPage} />
+        {loading === true ? null : (
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/questions/:id" component={QuestionPage} />
+            {isLoggedIn ? (
+              <>
+                <Route path="/leaderboard" component={Leaderboard} />
 
-              <Route path="/leaderboard" component={Leaderboard} />
-
-              <Route path="/add" component={NewQuestion} />
-              <Route component={NoMatch} />
-            </Switch>
-          )}
-          <Footer />
-        </div>
-      ) : (
-        <>
-          <Redirect to="/login" />
-          <Route path="/login" component={LogIn} />
-        </>
-      )}
+                <Route path="/add" component={NewQuestion} />
+              </>
+            ) : (
+              <>
+                <Redirect to="/login" />
+                <Route path="/login" component={LogIn} />
+              </>
+            )}
+            <Route component={NoMatch} />
+          </Switch>
+        )}
+        <Footer />
+      </div>
     </Router>
   );
 }

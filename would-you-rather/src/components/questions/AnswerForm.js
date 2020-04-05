@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { handleAnswerQuestion } from "../../actions/questions";
+import { handleAnswerQuestion } from "../../actions/shared";
 
 const AnswerForm = ({ question, dispatch, authedUser }) => {
   const [answer, setAnswer] = useState("optionOne");

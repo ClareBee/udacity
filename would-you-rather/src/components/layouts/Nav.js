@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 function Nav({ authedUser }) {
-  const handleLogout = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     //dispatch logout action and redirect to signin page
   };
@@ -24,7 +24,7 @@ function Nav({ authedUser }) {
           {authedUser ? (
             <>
               <span>{authedUser}</span>
-              <form onSubmit={handleLogout}>
+              <form onSubmit={handleSubmit}>
                 <button type="submit">Logout</button>
               </form>
             </>

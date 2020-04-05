@@ -21,6 +21,7 @@ function Homepage({ answered, unanswered }) {
 }
 
 function mapStateToProps({ questions }) {
+  // TODO: sort by date NB
   const questionKeys = Object.keys(questions);
   const answered = questionKeys
     .map(question => {
@@ -36,6 +37,7 @@ function mapStateToProps({ questions }) {
     if (answered.includes(questionKey)) return;
     return questionKey;
   });
+
   return {
     answered,
     unanswered

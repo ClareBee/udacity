@@ -15,44 +15,12 @@ export const addQuestion = question => ({
   question
 });
 
-export function handleAddQuestion(question) {
-  return (dispatch, getState) => {
-    const { authedUser } = getState();
-    console.log("user", authedUser);
-    dispatch(showLoading());
-    const { optionOneText, optionTwoText } = question;
-    console.log("info", authedUser, optionOneText);
-    return saveQuestion({
-      optionOneText,
-      optionTwoText,
-      author: authedUser
-    })
-      .then(question => dispatch(addQuestion(question)))
-      .then(dispatch(hideLoading()));
-  };
-}
-
-function updateQuestion({ qid, authedUser, answer }) {
+export const updateQuestion = input => {
+  const { qid, authedUser, answer } = input;
   return {
     type: UPDATE_QUESTION,
     qid,
     authedUser,
     answer
   };
-}
-
-export function handleAnswerQuestion(info) {
-  return dispatch => {
-    // for optimistic update
-    dispatch(updateQuestion(info));
-    // for api/db
-    return saveQuestionAnswer(info).catch(e => {
-      console.warn(`Error in saveQuestionAnswer: ${e}`);
-      // undo answer in case of error => handled in the reducer
-      dispatch(
-        updateQuestion({ id: info.id, authedUser: info.authedUser, answer: "" })
-      );
-      alert("There was an error saving this answer");
-    });
-  };
-}
+};

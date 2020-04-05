@@ -7,7 +7,8 @@ export default function authedUser(state = null, action) {
     case LOG_IN:
       const user = {
         email: action.email,
-        name: action.name
+        name: action.name,
+        password: action.password
       };
       return {
         ...state,
