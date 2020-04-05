@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import QuestionList from "../questions/QuestionList";
 
 function Homepage({ answered, unanswered, errors }) {
+  const [activeTab, setActiveTab] = useState("unanswered");
+
+  const handleTabChange = (_e, tabType) => {
+    setActiveTab(tabType);
+  };
   return (
     <div>
       <h2>Questions</h2>
@@ -10,13 +15,16 @@ function Homepage({ answered, unanswered, errors }) {
       {!errors && (
         <div>
           <div>
-            Unanswered
-            <QuestionList questionIds={unanswered} />
+            <div onClick={e => handleTabChange(e, "unanswered")}>
+              Unanswered
+            </div>
+            <div onClick={e => handleTabChange(e, "answered")}>Answered</div>
           </div>
-          <div>
-            Answered
+          {activeTab === "unanswered" ? (
+            <QuestionList questionIds={[]} />
+          ) : (
             <QuestionList questionIds={answered} />
-          </div>
+          )}
         </div>
       )}
     </div>
