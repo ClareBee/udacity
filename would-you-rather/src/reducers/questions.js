@@ -3,7 +3,6 @@ import { RECEIVE_QUESTIONS, ADD_QUESTION } from "../actions/questions";
 export default function questions(state = {}, action) {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
-      console.log("questions", action);
       return {
         ...state,
         ...action.questions

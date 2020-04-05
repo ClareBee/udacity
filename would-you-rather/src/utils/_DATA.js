@@ -40,7 +40,7 @@ let questions = {
     author: "sarahedo",
     timestamp: 1467166872634,
     optionOne: {
-      votes: ["sarahedo"],
+      votes: [],
       text: "have horrible short term memory"
     },
     optionTwo: {
