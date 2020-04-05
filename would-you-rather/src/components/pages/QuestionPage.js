@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import QuestionForm from "../questions/QuestionForm";
+import AnswerForm from "../questions/AnswerForm";
 import QuestionResults from "../questions/QuestionResults";
 function QuestionPage({ question, isAnswered }) {
   if (isAnswered) {
     return <QuestionResults question={question} />;
   }
-  return <QuestionForm question={question} />;
+  return <AnswerForm question={question} />;
 }
 
 function mapStateToProps({ questions }, props) {
