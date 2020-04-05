@@ -1,17 +1,30 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import { handleLogout } from "../../actions/authedUser";
 
+const NavBar = styled.nav`
+  border: 2px solid ${props => props.theme.secondary};
+  color: ${props => props.theme.fontColor};
+  ul {
+    list-style: none;
+    padding-inline-start: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  li {
+    margin: 1rem 2.5rem;
+  }
+`;
 function Nav({ dispatch, authedUser }) {
   const handleSubmit = e => {
     e.preventDefault();
-    //dispatch logout action and redirect to signin page
     dispatch(handleLogout(authedUser));
   };
 
   return (
-    <nav>
+    <NavBar>
       <ul>
         <li>
           <NavLink to="/">Home</NavLink>
@@ -35,7 +48,7 @@ function Nav({ dispatch, authedUser }) {
           )}
         </li>
       </ul>
-    </nav>
+    </NavBar>
   );
 }
 

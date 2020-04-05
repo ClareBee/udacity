@@ -4,7 +4,7 @@ let users = {
     name: "Sarah Edo",
     email: "edo@example.com",
     password: "secretPasswordSarah",
-    avatarURL: "https://i.pravatar.cc/300",
+    avatarURL: "./assets/sarah.svg",
     answers: {
       "6ni6ok3ym7mf1p33lnez": "optionTwo",
       am8ehyc8byjqgar0jgpub9: "optionTwo",
@@ -17,7 +17,7 @@ let users = {
     name: "Tyler McGinnis",
     email: "mcginnis@example.com",
     password: "secretPasswordTyler",
-    avatarURL: "https://i.pravatar.cc/300",
+    avatarURL: "./assets/tyler.svg",
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
       xj352vofupe1dqz9emx13r: "optionTwo"
@@ -29,7 +29,7 @@ let users = {
     name: "John Doe",
     email: "doe@example.com",
     password: "secretPasswordJohn",
-    avatarURL: "https://i.pravatar.cc/300",
+    avatarURL: "./assets/john.svg",
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
       vthrdm985a262al8qx3do: "optionTwo",

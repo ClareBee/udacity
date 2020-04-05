@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
+
 import QuestionList from "../questions/QuestionList";
+import Page from "../layouts/Page";
 
 function Homepage({ answered, unanswered, errors }) {
   const [activeTab, setActiveTab] = useState("unanswered");
@@ -9,7 +12,7 @@ function Homepage({ answered, unanswered, errors }) {
     setActiveTab(tabType);
   };
   return (
-    <div>
+    <Page>
       <h2>Questions</h2>
       {errors && <p>{errors}</p>}
       {!errors && (
@@ -27,17 +30,15 @@ function Homepage({ answered, unanswered, errors }) {
           )}
         </div>
       )}
-    </div>
+    </Page>
   );
 }
 
 function mapStateToProps({ questions, errors }) {
-  // TODO: sort by date NB
   const questionKeys = Object.keys(questions);
   const sortedQuestionKeys = questionKeys.sort(
     (a, b) => questions[b].timestamp - questions[a].timestamp
   );
-  console.log(sortedQuestionKeys);
   const answered = sortedQuestionKeys
     .map(question => {
       if (
