@@ -1,25 +1,14 @@
-import { SET_AUTHED_USER, LOG_IN, LOG_OUT } from "../actions/authedUser";
+import { LOG_IN, LOG_OUT } from "../actions/authedUser";
 
 export default function authedUser(state = null, action) {
   switch (action.type) {
-    case SET_AUTHED_USER:
-      return action.id;
     case LOG_IN:
-      const user = {
-        email: action.email,
-        name: action.name,
-        password: action.password
-      };
-      return {
-        ...state,
-        user
-      };
+      console.log("login", action);
+      // TODO fake verification and set authedUser id
+      return action.authedUser;
     case LOG_OUT:
       console.log(action.authedUser);
-      return {
-        ...state,
-        authedUser: {}
-      };
+      return null;
     default:
       return state;
   }

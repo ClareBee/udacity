@@ -16,19 +16,22 @@ import {
   Redirect
 } from "react-router-dom";
 
-function App({ dispatch, loading }) {
+function App({ dispatch, loading, authedUser }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   console.log("loading", loading);
   useEffect(() => {
     dispatch(handleInitialData());
-    setIsLoggedIn(false);
   }, [dispatch, loading]);
 
   useEffect(() => {
+    if (authedUser) {
+      console.log("woops");
+      setIsLoggedIn(true);
+    }
     if (!isLoggedIn) {
       console.log("not logged in");
     }
-  });
+  }, []);
   return (
     <Router>
       <div>
@@ -58,10 +61,10 @@ function App({ dispatch, loading }) {
     </Router>
   );
 }
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ users, authedUser }) {
   console.log("user?", authedUser);
   return {
-    loading: authedUser === null,
+    loading: users === null,
     authedUser
   };
 }

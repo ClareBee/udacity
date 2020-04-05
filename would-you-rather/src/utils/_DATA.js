@@ -2,6 +2,8 @@ let users = {
   sarahedo: {
     id: "sarahedo",
     name: "Sarah Edo",
+    email: "edo@example.com",
+    password: "secretPasswordSarah",
     avatarURL: "https://i.pravatar.cc/300",
     answers: {
       "6ni6ok3ym7mf1p33lnez": "optionTwo",
@@ -13,6 +15,8 @@ let users = {
   tylermcginnis: {
     id: "tylermcginnis",
     name: "Tyler McGinnis",
+    email: "mcginnis@example.com",
+    password: "secretPasswordTyler",
     avatarURL: "https://i.pravatar.cc/300",
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
@@ -23,6 +27,8 @@ let users = {
   johndoe: {
     id: "johndoe",
     name: "John Doe",
+    email: "doe@example.com",
+    password: "secretPasswordJohn",
     avatarURL: "https://i.pravatar.cc/300",
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
@@ -125,6 +131,22 @@ function generateUID() {
   );
 }
 
+export function _verifyUser(userInput) {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      const dbUsers = Object.keys(users).map(user => {
+        if (users[user].email === userInput.email) {
+          return user;
+        }
+      });
+      const dbUser = dbUsers.find(user => user !== undefined);
+      if (dbUser && users[dbUser].password === userInput.password) {
+        return res({ authedUser: dbUser });
+      }
+      return rej("error logging in");
+    }, 1000);
+  });
+}
 export function _getUsers() {
   return new Promise((res, rej) => {
     setTimeout(() => res({ ...users }), 1000);

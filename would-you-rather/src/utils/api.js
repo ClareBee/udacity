@@ -2,7 +2,8 @@ import {
   _getUsers,
   _getQuestions,
   _saveQuestion,
-  _saveQuestionAnswer
+  _saveQuestionAnswer,
+  _verifyUser
 } from "./_DATA.js";
 export function getInitialData() {
   return Promise.all([_getUsers(), _getQuestions()]).then(
@@ -19,4 +20,8 @@ export function saveQuestionAnswer(info) {
 
 export function saveQuestion(info) {
   return _saveQuestion(info);
+}
+
+export function verifyUser(info) {
+  return _verifyUser(info);
 }

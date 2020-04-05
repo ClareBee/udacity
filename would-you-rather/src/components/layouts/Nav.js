@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { handleLogout } from "../../actions/authedUser";
 
-function Nav({ authedUser }) {
+function Nav({ dispatch, authedUser }) {
   const handleSubmit = e => {
     e.preventDefault();
     //dispatch logout action and redirect to signin page
+    dispatch(handleLogout(authedUser));
   };
 
   return (

@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { handleLogin } from "../../actions/authedUser";
+import { Redirect } from "react-router-dom";
 
-function LogIn() {
-  const [name, setName] = useState("");
+function LogIn({ dispatch, authedUser }) {
   const [email, setEmail] = useState("");
-  useEffect(() => {
-    // automatic redirect to homepage when logged in check storage
-  });
+  const [password, setPassword] = useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
-    //TODO validate input, authenticate user and redirect to homepage
+    dispatch(handleLogin({ email, password }));
+    setEmail("");
+    setPassword("");
   };
 
   // TODO refactor into generic
-  const handleNameChange = e => {
-    setName(e.target.value);
+  const handlePasswordChange = e => {
+    setPassword(e.target.value);
   };
 
   const handleEmailChange = e => {
@@ -22,20 +24,30 @@ function LogIn() {
   };
 
   const missingValues = () => {
-    return name === "" || email === "";
+    return password === "" || email === "";
   };
   console.log(missingValues);
 
+  if (authedUser) {
+    return <Redirect to="/" />;
+  }
   return (
     <div>
       Login
       <form onSubmit={handleSubmit}>
-        <input name="name" id="name" value={name} onChange={handleNameChange} />
         <input
+          type="text"
           name="email"
           id="email"
           value={email}
           onChange={handleEmailChange}
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={password}
+          onChange={handlePasswordChange}
         />
         <button type="submit" disabled={missingValues()}>
           Log In
@@ -45,4 +57,10 @@ function LogIn() {
   );
 }
 
-export default LogIn;
+function mapStateToProps({ authedUser }) {
+  return {
+    authedUser
+  };
+}
+
+export default connect(mapStateToProps)(LogIn);

@@ -1,12 +1,9 @@
-import { getInitialData } from "../utils/api";
+import { getInitialData, saveQuestion, saveQuestionAnswer } from "../utils/api";
 import { receiveUsers, updateUserAnswers, updateUserQuestions } from "./users";
 import { receiveQuestions, addQuestion, updateQuestion } from "./questions";
 import { setAuthedUser } from "./authedUser";
 import { showLoading, hideLoading } from "react-redux-loading";
-import { saveQuestion, saveQuestionAnswer } from "../utils/api";
 
-// hard-coded for demo purposes
-const AUTHED_ID = "sarahedo";
 export function handleInitialData() {
   return dispatch => {
     dispatch(showLoading());
@@ -14,7 +11,6 @@ export function handleInitialData() {
     return getInitialData().then(({ users, questions }) => {
       dispatch(receiveUsers(users));
       dispatch(receiveQuestions(questions));
-      dispatch(setAuthedUser(AUTHED_ID));
       dispatch(hideLoading());
     });
   };
