@@ -1,12 +1,23 @@
 import React from "react";
-import Question from "../questions/Question";
-import { useParams } from "react-router-dom";
-
-function QuestionPage() {
-  let { id } = useParams();
-  console.log("questionId", id);
-  console.log("whaddup");
-  return <div>QuestionPage</div>;
+import { connect } from "react-redux";
+import QuestionForm from "../questions/QuestionForm";
+import QuestionResults from "../questions/QuestionResults";
+function QuestionPage({ question, isAnswered }) {
+  if (isAnswered) {
+    return <QuestionResults question={question} />;
+  }
+  return <QuestionForm question={question} />;
 }
 
-export default QuestionPage;
+function mapStateToProps({ questions }, props) {
+  const { id } = props.match.params;
+  const question = questions[id];
+  const isAnswered =
+    question.optionOne.votes.length !== 0 ||
+    question.optionTwo.votes.length !== 0;
+  return {
+    question,
+    isAnswered
+  };
+}
+export default connect(mapStateToProps)(QuestionPage);
