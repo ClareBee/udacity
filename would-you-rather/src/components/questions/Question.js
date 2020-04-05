@@ -28,7 +28,7 @@ function mapStateToProps({ authedUser, users, questions }, { id }) {
   return {
     authedUser,
     question,
-    author
+    author,
   };
 }
 export default withRouter(connect(mapStateToProps)(Question));
