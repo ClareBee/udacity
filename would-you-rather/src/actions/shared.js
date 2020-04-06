@@ -2,7 +2,7 @@ import {
   getInitialData,
   saveQuestion,
   saveQuestionAnswer,
-  verifyUser
+  verifyUser,
 } from "../utils/api";
 import { receiveUsers, updateUserAnswers, updateUserQuestions } from "./users";
 import { receiveQuestions, addQuestion, updateQuestion } from "./questions";
@@ -11,7 +11,7 @@ import { logInError, systemError } from "./errors";
 import { showLoading, hideLoading } from "react-redux-loading";
 
 export function handleInitialData() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(showLoading());
 
     return getInitialData()
@@ -26,7 +26,7 @@ export function handleInitialData() {
           dispatch(receiveQuestions(questions));
         }
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(hideLoading());
         dispatch(systemError(err));
       });
@@ -34,16 +34,16 @@ export function handleInitialData() {
 }
 
 export function handleLogin(info) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(showLoading());
 
     return verifyUser(info)
-      .then(user => {
+      .then((user) => {
         dispatch(logInError(null));
         dispatch(logIn(user));
         dispatch(hideLoading());
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(hideLoading());
         dispatch(logInError(err));
       });
@@ -58,14 +58,14 @@ export function handleAddQuestion(question) {
     return saveQuestion({
       optionOneText,
       optionTwoText,
-      author: authedUser
+      author: authedUser,
     })
-      .then(question => {
+      .then((question) => {
         dispatch(addQuestion(question));
         dispatch(updateUserQuestions(question));
       })
       .then(dispatch(hideLoading()))
-      .catch(err => {
+      .catch((err) => {
         dispatch(systemError(err));
         dispatch(hideLoading());
       });
@@ -73,18 +73,17 @@ export function handleAddQuestion(question) {
 }
 
 export function handleAnswerQuestion(info) {
-  return dispatch => {
+  return (dispatch) => {
     // for optimistic update
     dispatch(updateQuestion(info));
     dispatch(updateUserAnswers(info));
     // for api/db
-    return saveQuestionAnswer(info).catch(e => {
+    return saveQuestionAnswer(info).catch((e) => {
       console.warn(`Error in saveQuestionAnswer: ${e}`);
       // undo answer in case of error => handled in the reducer
       dispatch(
         updateQuestion({ id: info.id, authedUser: info.authedUser, answer: "" })
       );
-      // TODO: handle in reducer
       dispatch(updateUserAnswers(info));
 
       alert("There was an error saving this answer");

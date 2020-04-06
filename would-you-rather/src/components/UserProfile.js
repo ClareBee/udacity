@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { HeadingOne, HeadingTwo, SectionHeader } from "./layouts/Styled";
+
 function UserProfile({ user, rank }) {
   const { name, avatarURL, questions, answers } = user;
   const image = require(`../assets/${avatarURL}`);

@@ -1,10 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import Question from "./Question";
-
-const Questions = styled.div`
-  padding: 2rem 1rem 1rem;
-`;
+import { Questions } from "../layouts/Shared";
 
 function QuestionList({ questionIds }) {
   if (questionIds.length === 0) {

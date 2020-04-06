@@ -16,7 +16,6 @@ function NewQuestion({ dispatch, authedUser }) {
     setToHome(true);
   };
 
-  // TODO: refactor to be generic and use in other form too
   const handleOptionOne = (e) => {
     setOptionOneText(e.target.value);
   };

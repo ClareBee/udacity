@@ -1,12 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-
-const Bar = styled.div`
-  width: 100%;
-  height: 25px;
-  border: solid 2px black;
-  border-radius: 3px;
-`;
+import { Bar } from "./Styled";
 
 const ProgressBar = ({ percent }) => {
   return (

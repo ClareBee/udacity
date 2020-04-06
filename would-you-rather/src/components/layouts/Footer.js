@@ -1,13 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-
-const StyledFooter = styled.footer`
-  background: ${(props) => props.theme.secondary};
-  height: 1.5rem;
-  padding: 1rem 2.5rem;
-  color: ${(props) => props.theme.background};
-`;
-
+import { StyledFooter } from "./Styled";
 function Footer() {
   return (
     <StyledFooter>

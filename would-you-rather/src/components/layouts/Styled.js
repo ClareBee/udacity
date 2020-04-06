@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// SHARED ========================================
 export const HeadingOne = styled.h1`
   font-weight: bold;
   letter-spacing: 1.5px;
@@ -55,6 +56,17 @@ export const FormControl = styled.div`
   flex-direction: column;
 `;
 
+export const SectionHeader = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  border: solid 5px ${(props) => props.theme.secondary};
+  border-radius: 3px;
+  background: ${(props) => props.theme.whiteColor};
+`;
+
+// LAYOUT ===========================================
 export const Container = styled.div`
   color: ${(props) => props.theme.fontColor};
   border: 2px solid ${(props) => props.theme.main};
@@ -69,6 +81,7 @@ export const Container = styled.div`
     font-family: ${(props) => props.theme.headingFont};
   }
 `;
+
 export const NavBar = styled.nav`
   border: 2px solid ${(props) => props.theme.secondary};
   border-radius: 3px;
@@ -102,38 +115,25 @@ export const NavBar = styled.nav`
   }
 `;
 
-export const Results = styled.div`
-  background: ${(props) => props.theme.whiteColor};
-  padding: 1rem 1.5rem;
-  margin-bottom: 1.5rem;
+export const StyledFooter = styled.footer`
+  background: ${(props) => props.theme.secondary};
+  height: 1.5rem;
+  padding: 1rem 2.5rem;
+  color: ${(props) => props.theme.background};
+`;
+
+export const Bar = styled.div`
+  width: 100%;
+  height: 25px;
+  border: solid 2px black;
   border-radius: 3px;
 `;
 
-export const SectionHeader = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
-  justify-content: space-around;
-  border: solid 5px ${(props) => props.theme.secondary};
-  border-radius: 3px;
-  background: ${(props) => props.theme.whiteColor};
-`;
-
-export const ResultsBody = styled.div`
-  margin: 0 auto;
-  width: 75%;
-`;
+// HOMEPAGE ===========================================
 
 export const Name = styled.div`
   font-size: 1.5rem;
   margin-top: 2rem;
-`;
-
-export const QuestionContainer = styled.div`
-  padding: 1rem 2.5rem;
-  @media only screen and (max-width: 400px) {
-    padding: 0;
-  }
 `;
 
 export const Tab = styled.div`
@@ -149,4 +149,43 @@ export const Tab = styled.div`
     font-size: 0.8rem;
     padding: 1rem;
   }
+`;
+
+// QUESTION PAGES =====================================
+
+export const Questions = styled.div`
+  padding: 2rem 1rem 1rem;
+`;
+
+export const QuestionCard = styled.div`
+  background: ${(props) => props.theme.whiteColor};
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 3px;
+  display: flex;
+  flex-flow: row wrap;
+`;
+
+export const HighlightedName = styled.span`
+  color: ${(props) => props.theme.redColor};
+  font-weight: bold;
+`;
+
+export const QuestionContainer = styled.div`
+  padding: 1rem 2.5rem;
+  @media only screen and (max-width: 400px) {
+    padding: 0;
+  }
+`;
+
+export const Results = styled.div`
+  background: ${(props) => props.theme.whiteColor};
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 3px;
+`;
+
+export const ResultsBody = styled.div`
+  margin: 0 auto;
+  width: 75%;
 `;
