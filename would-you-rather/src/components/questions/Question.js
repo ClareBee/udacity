@@ -1,13 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import QuestionResults from "./QuestionResults";
+import styled from "styled-components";
 
+const QuestionCard = styled.div`
+  background: ${(props) => props.theme.whiteColor};
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 3px;
+`;
 function Question({ question, author }) {
   const { id, timestamp, optionOne, optionTwo } = question;
   const { name, avatarURL } = author;
   return (
-    <div>
+    <QuestionCard>
       <img src={avatarURL} alt={`Avatar of ${name}`} width="100" />
       <div>
         <span>{name} asks:</span>
@@ -18,7 +24,7 @@ function Question({ question, author }) {
         </div>
         <Link to={`/questions/${id}`}>View Poll</Link>
       </div>
-    </div>
+    </QuestionCard>
   );
 }
 

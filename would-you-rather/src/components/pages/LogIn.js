@@ -2,13 +2,27 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { handleLogin } from "../../actions/shared";
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+import Page from "../layouts/Page";
+
+const Error = styled.div`
+  padding: 1.5rem 0rem;
+  width: 100%;
+  color: ${(props) => props.theme.errorColor};
+  font-weight: bold;
+  font-size: 1.25rem;
+`;
+const HeadingOne = styled.h1`
+  font-weight: bold;
+  letter-spacing: 1.5px;
+`;
 
 function LogIn({ dispatch, authedUser, location, errors }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(handleLogin({ email, password }));
     setEmail("");
@@ -33,11 +47,11 @@ function LogIn({ dispatch, authedUser, location, errors }) {
   }, [location.state, authedUser]);
 
   // TODO refactor into generic
-  const handlePasswordChange = e => {
+  const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
-  const handleEmailChange = e => {
+  const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
@@ -49,9 +63,9 @@ function LogIn({ dispatch, authedUser, location, errors }) {
     return <Redirect to="/" />;
   }
   return (
-    <div>
-      Login
-      <div>{message || errors}</div>
+    <Page>
+      <HeadingOne>Login</HeadingOne>
+      <Error>{message || errors}</Error>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -71,14 +85,14 @@ function LogIn({ dispatch, authedUser, location, errors }) {
           Log In
         </button>
       </form>
-    </div>
+    </Page>
   );
 }
 
 function mapStateToProps({ authedUser, errors }) {
   return {
     authedUser,
-    errors
+    errors,
   };
 }
 

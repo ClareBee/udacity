@@ -7,6 +7,7 @@ const PageLayout = styled.main`
   width: 60%;
   background: ${(props) => props.theme.background};
   padding: 1rem 2.5rem;
+  border-radius: 3px;
 `;
 const Page = (props) => {
   return <PageLayout>{props.children}</PageLayout>;

@@ -16,16 +16,17 @@ import Footer from "./layouts/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const Container = styled.div`
-  color: ${props => props.theme.fontColor};
-  border: 2px solid ${props => props.theme.main};
-  font-family: ${props => props.theme.mainFont};
+  color: ${(props) => props.theme.fontColor};
+  border: 2px solid ${(props) => props.theme.main};
+  border-radius: 3px;
+  font-family: ${(props) => props.theme.mainFont};
   display: flex;
   min-height: 100vh;
   flex-direction: column;
   h1,
   h2,
   h3 {
-    font-family: ${props => props.theme.headingFont};
+    font-family: ${(props) => props.theme.headingFont};
   }
 `;
 function App({ dispatch, loading }) {
@@ -63,7 +64,7 @@ function mapStateToProps({ users, authedUser }) {
   console.log("user?", authedUser);
   return {
     loading: users === null,
-    authedUser
+    authedUser,
   };
 }
 

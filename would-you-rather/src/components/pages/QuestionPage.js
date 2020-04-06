@@ -1,24 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-
+import Page from "../layouts/Page";
 import AnswerForm from "../questions/AnswerForm";
 import QuestionResults from "../questions/QuestionResults";
 function QuestionPage({ question, isAnswered, authedUser }) {
   if (isAnswered) {
-    return <QuestionResults question={question} />;
+    return (
+      <Page>
+        <QuestionResults question={question} />
+      </Page>
+    );
   }
   if (!authedUser) {
     return (
       <Redirect
         to={{
           pathname: "/login",
-          state: { message: "You must be logged in to reply to a poll" }
+          state: { message: "You must be logged in to reply to a poll" },
         }}
       />
     );
   }
-  return <AnswerForm question={question} />;
+  return (
+    <Page>
+      <AnswerForm question={question} />
+    </Page>
+  );
 }
 
 function mapStateToProps({ questions, authedUser }, props) {
@@ -30,7 +38,7 @@ function mapStateToProps({ questions, authedUser }, props) {
   return {
     question,
     isAnswered,
-    authedUser
+    authedUser,
   };
 }
 export default connect(mapStateToProps)(QuestionPage);
