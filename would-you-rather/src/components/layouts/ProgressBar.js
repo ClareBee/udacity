@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Bar } from "./Styled";
 
 const ProgressBar = ({ percent }) => {
@@ -16,6 +17,10 @@ const ProgressBar = ({ percent }) => {
       </Bar>
     </>
   );
+};
+
+ProgressBar.propTypes = {
+  percent: PropTypes.string.isRequired,
 };
 
 export default ProgressBar;

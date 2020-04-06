@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { handleLogout } from "../../actions/authedUser";
 import { Button, NavBar } from "./Styled";
 
@@ -48,5 +49,10 @@ function mapStateToProps({ authedUser }) {
     authedUser,
   };
 }
+
+Nav.propTypes = {
+  authedUser: PropTypes.string,
+  dispatch: PropTypes.func,
+};
 
 export default connect(mapStateToProps)(Nav);

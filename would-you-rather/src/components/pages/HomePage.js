@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import QuestionList from "../questions/QuestionList";
 import Page from "../layouts/Page";
 import { HeadingOne, Tab, QuestionContainer } from "../layouts/Styled";
@@ -71,4 +73,10 @@ function mapStateToProps({ questions, errors }) {
     errors,
   };
 }
+
+Homepage.propTypes = {
+  answered: PropTypes.array,
+  unanswered: PropTypes.array,
+  errors: PropTypes.string,
+};
 export default connect(mapStateToProps)(Homepage);

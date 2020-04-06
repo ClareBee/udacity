@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import Page from "../layouts/Page";
 import AnswerForm from "../questions/AnswerForm";
 import QuestionResults from "../questions/QuestionResults";
-function QuestionPage({ question, isAnswered, authedUser, author }) {
+function QuestionPage({ question, isAnswered, authedUser }) {
   if (isAnswered) {
     return (
       <Page>
@@ -40,7 +42,7 @@ function QuestionPage({ question, isAnswered, authedUser, author }) {
   );
 }
 
-function mapStateToProps({ questions, authedUser, users }, props) {
+function mapStateToProps({ questions, authedUser }, props) {
   const { id } = props.match.params;
   const question = questions[id];
   // guard against questions that don't exist
@@ -53,13 +55,16 @@ function mapStateToProps({ questions, authedUser, users }, props) {
     question.optionOne.votes.length !== 0 ||
     question.optionTwo.votes.length !== 0;
 
-  const author = users[question.author];
-
   return {
     question,
     isAnswered,
     authedUser,
-    author,
   };
 }
+
+QuestionPage.propTypes = {
+  question: PropTypes.object,
+  isAnswered: PropTypes.bool,
+  authedUser: PropTypes.string,
+};
 export default connect(mapStateToProps)(QuestionPage);

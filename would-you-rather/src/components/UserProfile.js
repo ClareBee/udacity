@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import { HeadingOne, HeadingTwo, SectionHeader } from "./layouts/Styled";
 
 function UserProfile({ user, rank }) {
@@ -30,4 +32,9 @@ function mapStateToProps({ users }, { id, rank }) {
     rank,
   };
 }
+
+UserProfile.propTypes = {
+  user: PropTypes.object,
+  rank: PropTypes.number,
+};
 export default connect(mapStateToProps)(UserProfile);

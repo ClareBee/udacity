@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import ProgressBar from "../layouts/ProgressBar";
 import {
   Results,
@@ -59,10 +61,14 @@ function QuestionResults({ question, author, authedUser }) {
 function mapStateToProps({ users, authedUser }, { question }) {
   const author = users[question.author];
   return {
-    users,
     author,
     authedUser,
   };
 }
+
+QuestionResults.propTypes = {
+  author: PropTypes.object,
+  authedUser: PropTypes.string,
+};
 
 export default connect(mapStateToProps)(QuestionResults);

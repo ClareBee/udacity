@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import Question from "./Question";
 import { Questions } from "../layouts/Styled";
 
@@ -14,5 +16,9 @@ function QuestionList({ questionIds }) {
     </Questions>
   );
 }
+
+QuestionList.propTypes = {
+  questionIds: PropTypes.array,
+};
 
 export default QuestionList;

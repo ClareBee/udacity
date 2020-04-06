@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import { handleAddQuestion } from "../../actions/shared";
 import Page from "../layouts/Page";
 import { HeadingOne, Button, StyledForm, FormControl } from "../layouts/Styled";
@@ -80,5 +82,9 @@ function mapStateToProps({ authedUser }) {
     authedUser,
   };
 }
+
+NewQuestion.propTypes = {
+  authedUser: PropTypes.string,
+};
 
 export default connect(mapStateToProps)(NewQuestion);
