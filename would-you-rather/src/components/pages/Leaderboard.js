@@ -19,8 +19,8 @@ function Leaderboard({ userIds, authedUser }) {
   return (
     <Page>
       <ul>
-        {userIds.map((userId) => (
-          <UserProfile id={userId} key={userId} />
+        {userIds.map((userId, index) => (
+          <UserProfile id={userId} key={userId} rank={index + 1} />
         ))}
       </ul>{" "}
     </Page>

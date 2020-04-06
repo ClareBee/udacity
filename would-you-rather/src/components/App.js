@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { handleInitialData } from "../actions/shared";
 import { connect } from "react-redux";
 import LoadingBar from "react-redux-loading";
-import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../theme";
 import LogIn from "./pages/LogIn";
@@ -13,22 +12,9 @@ import QuestionPage from "./pages/QuestionPage";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./layouts/Nav";
 import Footer from "./layouts/Footer";
+import { Container } from "./layouts/Styled";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const Container = styled.div`
-  color: ${(props) => props.theme.fontColor};
-  border: 2px solid ${(props) => props.theme.main};
-  border-radius: 3px;
-  font-family: ${(props) => props.theme.mainFont};
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  h1,
-  h2,
-  h3 {
-    font-family: ${(props) => props.theme.headingFont};
-  }
-`;
 function App({ dispatch, loading }) {
   useEffect(() => {
     dispatch(handleInitialData());

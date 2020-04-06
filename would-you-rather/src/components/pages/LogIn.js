@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { handleLogin } from "../../actions/shared";
 import { Redirect } from "react-router-dom";
-import styled from "styled-components";
 import Page from "../layouts/Page";
-import { Button, StyledForm, FormControl, HeadingOne } from "../layouts/Styled";
-
-const Error = styled.div`
-  padding: 1.5rem 0rem;
-  width: 100%;
-  color: ${(props) => props.theme.redColor};
-  font-weight: bold;
-  font-size: 1.25rem;
-`;
+import {
+  Button,
+  StyledForm,
+  FormControl,
+  HeadingOne,
+  Error,
+} from "../layouts/Styled";
 
 function LogIn({ dispatch, authedUser, location, errors }) {
   const [email, setEmail] = useState("");
@@ -43,7 +40,6 @@ function LogIn({ dispatch, authedUser, location, errors }) {
     return () => clearTimeout(errorMsg);
   }, [location.state, authedUser]);
 
-  // TODO refactor into generic
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };

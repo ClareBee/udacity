@@ -6,6 +6,7 @@ import { StyledForm, Button, FormControl, HeadingOne } from "../layouts/Styled";
 
 const AnswerForm = ({ question, author, dispatch, authedUser }) => {
   const [answer, setAnswer] = useState("optionOne");
+  const image = require(`../../assets/${author.avatarURL}`);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,20 +14,15 @@ const AnswerForm = ({ question, author, dispatch, authedUser }) => {
   };
 
   const handleChange = (e) => {
-    console.log("event", e.target.value);
     setAnswer(e.target.value);
   };
   return (
     <Page>
       <HeadingOne>Would You Rather...?</HeadingOne>
-      <img
-        src={author.avatarURL}
-        alt={`Avatar of ${author.name}`}
-        width="100"
-      />
+      <img src={image} alt={`Avatar of ${author.name}`} width="100" />
       <StyledForm onSubmit={handleSubmit}>
         <FormControl>
-          <label> {question.optionOne.text}</label>
+          <label>...{question.optionOne.text}?</label>
           <input
             type="radio"
             name="answer"
@@ -37,7 +33,7 @@ const AnswerForm = ({ question, author, dispatch, authedUser }) => {
         </FormControl>
         <p>OR</p>
         <FormControl className="form-check">
-          <label> {question.optionTwo.text}</label>
+          <label>...{question.optionTwo.text}?</label>
           <input
             type="radio"
             name="answer"
@@ -52,9 +48,11 @@ const AnswerForm = ({ question, author, dispatch, authedUser }) => {
   );
 };
 
-function mapStateToProps({ authedUser }, { question }) {
+function mapStateToProps({ authedUser, users }, { question }) {
+  const author = users[question.author];
   return {
     authedUser,
+    author,
   };
 }
 export default connect(mapStateToProps)(AnswerForm);

@@ -1,25 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
-
 import QuestionList from "../questions/QuestionList";
 import Page from "../layouts/Page";
-import { HeadingOne } from "../layouts/Styled";
-
-const QuestionContainer = styled.div`
-  padding: 1rem 2.5rem;
-`;
-
-const Tab = styled.div`
-  display: inline-block;
-  padding: 1rem 1.5rem;
-  font-size: 1.25rem;
-  border: 3px solid ${(props) => props.theme.main};
-  background: #fff;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  cursor: pointer;
-`;
+import { HeadingOne, Tab, QuestionContainer } from "../layouts/Styled";
 
 function Homepage({ answered, unanswered, errors }) {
   const [activeTab, setActiveTab] = useState("unanswered");

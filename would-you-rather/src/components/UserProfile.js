@@ -1,25 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
-
-function UserProfile({ user }) {
-  console.log("user", user);
+import { HeadingOne, HeadingTwo, SectionHeader } from "./layouts/Styled";
+function UserProfile({ user, rank }) {
   const { name, avatarURL, questions, answers } = user;
+  const image = require(`../assets/${avatarURL}`);
+
   const numOfAnswers = Object.keys(answers).length;
   return (
     <div>
-      <img src={avatarURL} alt={`avatar of ${name}`} width="100" />
-      User profile: {name}
-      <span>Questions Asked: {questions.length}</span>
-      <span>Questions Answered: {numOfAnswers} </span>
-      <span>{questions.length + numOfAnswers}</span>
+      <HeadingOne>{rank}</HeadingOne>
+      <SectionHeader>
+        <img src={image} alt={`avatar of ${name}`} width="100" />
+        <div>
+          <HeadingTwo>User profile: {name}</HeadingTwo>
+          <div>Questions Asked: {questions.length}</div>
+          <div>Questions Answered: {numOfAnswers} </div>
+        </div>
+        <HeadingTwo>Total Score: {questions.length + numOfAnswers}</HeadingTwo>
+      </SectionHeader>
     </div>
   );
 }
 
-function mapStateToProps({ users }, { id }) {
+function mapStateToProps({ users }, { id, rank }) {
   const user = users[id];
   return {
-    user
+    user,
+    rank,
   };
 }
 export default connect(mapStateToProps)(UserProfile);
