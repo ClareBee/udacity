@@ -2,9 +2,8 @@
 
 ## Get Started
 
-`yarn start`
-
-Launches on `localhost:3000`
+- `yarn` to install dependencies
+- `yarn start` to launch app on `localhost:3000`
 
 ## Login
 
@@ -27,16 +26,16 @@ Choose from the following hard-coded users:
 
 ### Homepage
 
-<img src="./snapshots/homepage.jpg" alt="Homepage" width="450">
+<img src="./snapshots/homepage.jpg" alt="Homepage" width="500">
 
 ### Leaderboard
 
-<img src="./snapshots/leaderboard.jpg" alt="Leaderboard" width="450">
+<img src="./snapshots/leaderboard.jpg" alt="Leaderboard" width="500">
 
 ### Login Page
 
-<img src="./snapshots/login.jpg" alt="Login Page" width="450">
+<img src="./snapshots/login.jpg" alt="Login Page" width="500">
 
 ## Results Page
 
-<img src="./snapshots/poll_results.jpg" alt="Poll Results" width="450">
+<img src="./snapshots/poll_results.jpg" alt="Poll Results" width="500">
