@@ -1,6 +1,6 @@
 import React from "react";
 import Question from "./Question";
-import { Questions } from "../layouts/Shared";
+import { Questions } from "../layouts/Styled";
 
 function QuestionList({ questionIds }) {
   if (questionIds.length === 0) {
