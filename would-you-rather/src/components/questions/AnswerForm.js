@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import { handleAnswerQuestion } from "../../actions/shared";
 import Page from "../layouts/Page";
 import { StyledForm, Button, FormControl, HeadingOne } from "../layouts/Styled";
@@ -55,4 +57,9 @@ function mapStateToProps({ authedUser, users }, { question }) {
     author,
   };
 }
+
+AnswerForm.propTypes = {
+  authedUser: PropTypes.string,
+  author: PropTypes.object,
+};
 export default connect(mapStateToProps)(AnswerForm);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { handleLogin } from "../../actions/shared";
 import { Redirect } from "react-router-dom";
 import Page from "../layouts/Page";
@@ -94,5 +95,10 @@ function mapStateToProps({ authedUser, errors }) {
     errors,
   };
 }
+
+LogIn.propTypes = {
+  authedUser: PropTypes.string,
+  errors: PropTypes.string,
+};
 
 export default connect(mapStateToProps)(LogIn);

@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import { QuestionCard, HighlightedName } from "../layouts/Styled";
 function Question({ question, author }) {
   const { id, optionOne, optionTwo } = question;
@@ -24,13 +26,17 @@ function Question({ question, author }) {
   );
 }
 
-function mapStateToProps({ authedUser, users, questions }, { id }) {
+function mapStateToProps({ users, questions }, { id }) {
   const question = questions[id];
   const author = users[question.author];
   return {
-    authedUser,
     question,
     author,
   };
 }
+
+Question.propTypes = {
+  question: PropTypes.object,
+  author: PropTypes.object,
+};
 export default withRouter(connect(mapStateToProps)(Question));
