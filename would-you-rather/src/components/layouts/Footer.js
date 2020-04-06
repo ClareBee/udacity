@@ -11,8 +11,8 @@ const StyledFooter = styled.footer`
 function Footer() {
   return (
     <StyledFooter>
-      &copy; ClareBee 2020 for Udacity ReactJS Nanodegree Avatar by iconfield
-      from the{" "}
+      &copy; ClareBee 2020 for Udacity ReactJS Nanodegree. Avatars provided by
+      iconfield from the{" "}
       <a
         target="_blank"
         rel="noopener noreferrer"

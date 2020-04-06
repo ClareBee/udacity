@@ -12,9 +12,10 @@ const QuestionCard = styled.div`
 function Question({ question, author }) {
   const { id, timestamp, optionOne, optionTwo } = question;
   const { name, avatarURL } = author;
+  const image = require(`../../assets/${avatarURL}`);
   return (
     <QuestionCard>
-      <img src={avatarURL} alt={`Avatar of ${name}`} width="100" />
+      <img src={image} alt={`Avatar of ${name}`} width="100" />
       <div>
         <span>{name} asks:</span>
         <div>{timestamp}</div>

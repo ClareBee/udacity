@@ -4,11 +4,7 @@ import styled from "styled-components";
 
 import QuestionList from "../questions/QuestionList";
 import Page from "../layouts/Page";
-
-const HeadingOne = styled.h1`
-  font-weight: bold;
-  letter-spacing: 1.5px;
-`;
+import { HeadingOne } from "../layouts/Styled";
 
 const QuestionContainer = styled.div`
   padding: 1rem 2.5rem;
@@ -22,6 +18,7 @@ const Tab = styled.div`
   background: #fff;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  cursor: pointer;
 `;
 
 function Homepage({ answered, unanswered, errors }) {

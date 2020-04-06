@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import Page from "../layouts/Page";
 import AnswerForm from "../questions/AnswerForm";
 import QuestionResults from "../questions/QuestionResults";
-function QuestionPage({ question, isAnswered, authedUser }) {
+function QuestionPage({ question, isAnswered, authedUser, author }) {
   if (isAnswered) {
     return (
       <Page>
@@ -29,16 +29,21 @@ function QuestionPage({ question, isAnswered, authedUser }) {
   );
 }
 
-function mapStateToProps({ questions, authedUser }, props) {
+function mapStateToProps({ questions, authedUser, users }, props) {
   const { id } = props.match.params;
   const question = questions[id];
+
   const isAnswered =
     question.optionOne.votes.length !== 0 ||
     question.optionTwo.votes.length !== 0;
+
+  const author = users[question.author];
+
   return {
     question,
     isAnswered,
     authedUser,
+    author,
   };
 }
 export default connect(mapStateToProps)(QuestionPage);

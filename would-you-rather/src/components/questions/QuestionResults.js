@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const Results = styled.div`
   background: ${(props) => props.theme.whiteColor};
@@ -8,17 +9,38 @@ const Results = styled.div`
   border-radius: 3px;
 `;
 
-function QuestionResults({ question }) {
+function QuestionResults({ question, author }) {
+  const { name, avatarURL } = author;
+  const image = require(`../../assets/${avatarURL}`);
+  const { optionOne, optionTwo } = question;
+
+  const logError = (e) => {
+    console.log("erroring", e);
+  };
   return (
     <Results>
-      <div>Asked by {question.author}</div>
+      <img
+        src={image}
+        alt={`Avatar of ${name}`}
+        width="100"
+        onError={logError}
+      />
+      <div>Asked by {name}</div>
       <div>
         Results:
-        <div>Would you rather {question.optionOne.text}?</div>
-        <div>Would you rather {question.optionTwo.text}</div>
+        <div>Would you rather {optionOne.text}?</div>
+        <div>Would you rather {optionTwo.text}</div>
       </div>
     </Results>
   );
 }
 
-export default QuestionResults;
+function mapStateToProps({ users }, props) {
+  const author = users[props.question.author];
+  return {
+    users,
+    author,
+  };
+}
+
+export default connect(mapStateToProps)(QuestionResults);

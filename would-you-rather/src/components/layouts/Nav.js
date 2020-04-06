@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { handleLogout } from "../../actions/authedUser";
+import { Button } from "./Styled";
 
 const NavBar = styled.nav`
   border: 2px solid ${(props) => props.theme.secondary};
@@ -58,7 +59,7 @@ function Nav({ dispatch, authedUser }) {
             <>
               <span>{authedUser}</span>
               <form onSubmit={handleSubmit}>
-                <button type="submit">Logout</button>
+                <Button type="submit">Logout</Button>
               </form>
             </>
           ) : (

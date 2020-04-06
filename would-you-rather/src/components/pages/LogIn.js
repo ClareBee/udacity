@@ -4,17 +4,14 @@ import { handleLogin } from "../../actions/shared";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import Page from "../layouts/Page";
+import { Button, StyledForm, FormControl, HeadingOne } from "../layouts/Styled";
 
 const Error = styled.div`
   padding: 1.5rem 0rem;
   width: 100%;
-  color: ${(props) => props.theme.errorColor};
+  color: ${(props) => props.theme.redColor};
   font-weight: bold;
   font-size: 1.25rem;
-`;
-const HeadingOne = styled.h1`
-  font-weight: bold;
-  letter-spacing: 1.5px;
 `;
 
 function LogIn({ dispatch, authedUser, location, errors }) {
@@ -66,25 +63,31 @@ function LogIn({ dispatch, authedUser, location, errors }) {
     <Page>
       <HeadingOne>Login</HeadingOne>
       <Error>{message || errors}</Error>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <button type="submit" disabled={missingValues()}>
+      <StyledForm onSubmit={handleSubmit}>
+        <FormControl>
+          <label>Email: </label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+        </FormControl>
+        <FormControl>
+          <label>Password: </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </FormControl>
+        <Button type="submit" disabled={missingValues()}>
           Log In
-        </button>
-      </form>
+        </Button>
+      </StyledForm>
     </Page>
   );
 }

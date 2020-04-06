@@ -3,7 +3,7 @@ export const theme = {
   secondary: "#44BBA4",
   background: "#F6F7EB",
   whiteColor: "#fdfdfd",
-  errorColor: "#E94F37",
+  redColor: "#E94F37",
   fontColor: "#393E41",
   headingFont: "Raleway",
   mainFont: "Open Sans",
