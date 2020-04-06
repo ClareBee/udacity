@@ -19,3 +19,10 @@ body {
   border: none;
   border-bottom: 3px solid #3f88c5;
 }
+
+.votes.selected {
+  background-color: #e94f37;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+}
