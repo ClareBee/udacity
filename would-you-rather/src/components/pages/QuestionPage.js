@@ -12,6 +12,16 @@ function QuestionPage({ question, isAnswered, authedUser, author }) {
       </Page>
     );
   }
+  if (question === undefined) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/404",
+          state: { message: "That poll does not exist" },
+        }}
+      />
+    );
+  }
   if (!authedUser) {
     return (
       <Redirect
@@ -22,6 +32,7 @@ function QuestionPage({ question, isAnswered, authedUser, author }) {
       />
     );
   }
+
   return (
     <Page>
       <AnswerForm question={question} />
@@ -32,7 +43,12 @@ function QuestionPage({ question, isAnswered, authedUser, author }) {
 function mapStateToProps({ questions, authedUser, users }, props) {
   const { id } = props.match.params;
   const question = questions[id];
-
+  // guard against questions that don't exist
+  if (question === undefined) {
+    return {
+      question,
+    };
+  }
   const isAnswered =
     question.optionOne.votes.length !== 0 ||
     question.optionTwo.votes.length !== 0;

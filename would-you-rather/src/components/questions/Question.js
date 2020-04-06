@@ -8,20 +8,29 @@ const QuestionCard = styled.div`
   padding: 1rem 1.5rem;
   margin-bottom: 1.5rem;
   border-radius: 3px;
+  display: flex;
+  flex-flow: row wrap;
+`;
+
+const Name = styled.span`
+  color: ${(props) => props.theme.redColor};
+  font-weight: bold;
 `;
 function Question({ question, author }) {
-  const { id, timestamp, optionOne, optionTwo } = question;
+  const { id, optionOne, optionTwo } = question;
   const { name, avatarURL } = author;
   const image = require(`../../assets/${avatarURL}`);
+
   return (
     <QuestionCard>
       <img src={image} alt={`Avatar of ${name}`} width="100" />
       <div>
-        <span>{name} asks:</span>
-        <div>{timestamp}</div>
-        <div>Would you rather?</div>
+        <span>
+          <Name>{name}</Name> asks:
+        </span>
+        <div>Would you rather...?</div>
         <div>
-          {optionOne.text} or {optionTwo.text}?
+          ...{optionOne.text} or {optionTwo.text}?
         </div>
         <Link to={`/questions/${id}`}>View Poll</Link>
       </div>
