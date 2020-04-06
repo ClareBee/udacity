@@ -47,7 +47,6 @@ function App({ dispatch, loading }) {
   );
 }
 function mapStateToProps({ users, authedUser }) {
-  console.log("user?", authedUser);
   return {
     loading: users === null,
     authedUser,

@@ -148,7 +148,6 @@ export function _getUsers() {
   return new Promise((res, rej) => {
     setTimeout(() => {
       if (Object.keys(users).length === 0) {
-        console.log("no users");
         return rej({ errors: "No users on the system" });
       }
       return res({ ...users });
@@ -225,7 +224,6 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
           },
         },
       };
-      console.log(questions[qid][answer]);
       res();
     }, 500);
   });
