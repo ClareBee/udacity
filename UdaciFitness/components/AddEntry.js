@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
-import { getMetricMetaInfo } from "../utils/helpers";
+import { View, Text, TouchableOpacity } from "react-native";
+import { getMetricMetaInfo, timeToString } from "../utils/helpers";
 import DateHeader from "./DateHeader";
 import Slider from "./Slider";
 import Stepper from "./Stepper";
 
+function Button({ onPress }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Text>SUBMIT</Text>
+    </TouchableOpacity>
+  );
+}
 export default class AddEntry extends Component {
   state = {
     run: 0,
@@ -43,6 +50,20 @@ export default class AddEntry extends Component {
       [metric]: newValue,
     }));
   };
+
+  submit = () => {
+    const key = timeToString();
+    const entry = this.state;
+    // TODO update Redux, nav to home, update db, clear local notifications
+    this.setState(() => ({
+      run: 0,
+      bike: 0,
+      swim: 0,
+      eat: 0,
+      sleep: 0,
+    }));
+  };
+
   render() {
     const metaInfo = getMetricMetaInfo();
     console.log("meta", metaInfo);
@@ -74,6 +95,7 @@ export default class AddEntry extends Component {
             </View>
           );
         })}
+        <Button onPress={this.submit} />
       </View>
     );
   }
