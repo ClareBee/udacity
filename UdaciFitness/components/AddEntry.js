@@ -4,6 +4,8 @@ import { getMetricMetaInfo, timeToString } from "../utils/helpers";
 import DateHeader from "./DateHeader";
 import Slider from "./Slider";
 import Stepper from "./Stepper";
+import TextButton from "./TextButton";
+import { Ionicons } from "@expo/vector-icons";
 
 function Button({ onPress }) {
   return (
@@ -64,9 +66,24 @@ export default class AddEntry extends Component {
     }));
   };
 
+  reset = () => {
+    const key = timeToString();
+    // TODO: updateRedux, route to home, update db
+  };
+
   render() {
     const metaInfo = getMetricMetaInfo();
     console.log("meta", metaInfo);
+
+    if (this.props.alreadyLogged) {
+      return (
+        <View>
+          <Ionicons name="ios-happy" size={100} />
+          <Text>You already logged your info for today</Text>
+          <TextButton onPress={this.reset}>RESET</TextButton>
+        </View>
+      );
+    }
     return (
       <View>
         <DateHeader date={new Date().toLocaleDateString()} />
