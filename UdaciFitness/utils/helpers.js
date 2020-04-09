@@ -124,5 +124,8 @@ export function getMetricMetaInfo(metric) {
       },
     },
   };
-  return typeof metric === undefined ? info : info[metric];
+  if (metric === undefined) {
+    return info;
+  }
+  return info[metric];
 }
