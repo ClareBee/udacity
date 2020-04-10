@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {
   ScrollView,
-  FlatList,
+  Platform,
+  StyleSheet,
   View,
   Text,
   TouchableOpacity,
@@ -19,11 +20,19 @@ import TextButton from "./TextButton";
 import { Ionicons } from "@expo/vector-icons";
 import { submitEntry, removeEntry } from "../utils/api";
 import { addEntry } from "../actions";
+import { white, purple } from "../utils/colours";
 
 function SubmitButton({ onPress }) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>SUBMIT</Text>
+    <TouchableOpacity
+      onPress={onPress}
+      style={
+        Platform.OS === "ios"
+          ? styles.iosSubmitButton
+          : styles.androidSubmitButton
+      }
+    >
+      <Text style={styles.submitButtonText}>SUBMIT</Text>
     </TouchableOpacity>
   );
 }
@@ -102,15 +111,18 @@ class AddEntry extends Component {
 
     if (this.props.alreadyLogged) {
       return (
-        <View>
-          <Ionicons name="ios-happy" size={100} />
+        <View style={styles.center}>
+          <Ionicons
+            name={Platform.OS === "ios" ? "ios-happy" : "md-happy"}
+            size={100}
+          />
           <Text>You already logged your info for today</Text>
           <TextButton onPress={this.reset}>RESET</TextButton>
         </View>
       );
     }
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <DateHeader date={new Date().toLocaleDateString()} />
 
         {Object.keys(metaInfo).map((key) => {
@@ -118,7 +130,7 @@ class AddEntry extends Component {
           const value = this.state[key];
 
           return (
-            <View key={key}>
+            <View key={key} style={styles.row}>
               {getIcon()}
               {type === "slider" ? (
                 <Slider
@@ -142,6 +154,50 @@ class AddEntry extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: white,
+  },
+  row: {
+    flexDirection: "row",
+    flex: 1,
+    alignItems: "center",
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 30,
+    marginRight: 30,
+  },
+  iosSubmitButton: {
+    backgroundColor: purple,
+    padding: 10,
+    borderRadius: 7,
+    height: 45,
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  androidSubmitButton: {
+    backgroundColor: purple,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    height: 45,
+    borderRadius: 2,
+    alignSelf: "flex-end",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  submitButtonText: {
+    color: white,
+    fontSize: 22,
+    textAlign: "center",
+  },
+});
 
 function mapStateToProps(state) {
   const key = timeToString();
