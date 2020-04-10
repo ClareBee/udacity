@@ -1,21 +1,33 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { getMetricMetaInfo, timeToString } from "../utils/helpers";
+import {
+  ScrollView,
+  FlatList,
+  View,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import { connect } from "react-redux";
+import {
+  getMetricMetaInfo,
+  timeToString,
+  getDailyReminderValue,
+} from "../utils/helpers";
 import DateHeader from "./DateHeader";
 import Slider from "./Slider";
 import Stepper from "./Stepper";
 import TextButton from "./TextButton";
 import { Ionicons } from "@expo/vector-icons";
 import { submitEntry, removeEntry } from "../utils/api";
+import { addEntry } from "../actions";
 
-function Button({ onPress }) {
+function SubmitButton({ onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <Text>SUBMIT</Text>
     </TouchableOpacity>
   );
 }
-export default class AddEntry extends Component {
+class AddEntry extends Component {
   state = {
     run: 0,
     bike: 0,
@@ -57,8 +69,13 @@ export default class AddEntry extends Component {
   submit = () => {
     const key = timeToString();
     const entry = this.state;
-    // TODO update Redux, nav to home, update db, clear local notifications
     submitEntry({ key, entry });
+    //update redux
+    this.props.dispatch(
+      addEntry({
+        [key]: entry,
+      })
+    );
     this.setState(() => ({
       run: 0,
       bike: 0,
@@ -70,7 +87,12 @@ export default class AddEntry extends Component {
 
   reset = () => {
     const key = timeToString();
-    // TODO: updateRedux, route to home, update db
+    // update redux
+    this.propsdispatch(
+      addEntry({
+        [key]: getDailyReminderValue(),
+      })
+    );
     removeEntry(key);
   };
 
@@ -88,7 +110,7 @@ export default class AddEntry extends Component {
       );
     }
     return (
-      <View>
+      <ScrollView>
         <DateHeader date={new Date().toLocaleDateString()} />
 
         {Object.keys(metaInfo).map((key) => {
@@ -115,8 +137,16 @@ export default class AddEntry extends Component {
             </View>
           );
         })}
-        <Button onPress={this.submit} />
-      </View>
+        <SubmitButton onPress={this.submit} />
+      </ScrollView>
     );
   }
 }
+
+function mapStateToProps(state) {
+  const key = timeToString();
+  return {
+    alreadyLogged: state[key] && typeof state[key].today === "undefined",
+  };
+}
+export default connect(mapStateToProps)(AddEntry);
