@@ -6,6 +6,7 @@ import Slider from "./Slider";
 import Stepper from "./Stepper";
 import TextButton from "./TextButton";
 import { Ionicons } from "@expo/vector-icons";
+import { submitEntry, removeEntry } from "../utils/api";
 
 function Button({ onPress }) {
   return (
@@ -57,6 +58,7 @@ export default class AddEntry extends Component {
     const key = timeToString();
     const entry = this.state;
     // TODO update Redux, nav to home, update db, clear local notifications
+    submitEntry({ key, entry });
     this.setState(() => ({
       run: 0,
       bike: 0,
@@ -69,6 +71,7 @@ export default class AddEntry extends Component {
   reset = () => {
     const key = timeToString();
     // TODO: updateRedux, route to home, update db
+    removeEntry(key);
   };
 
   render() {
