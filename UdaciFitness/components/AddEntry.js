@@ -122,7 +122,7 @@ class AddEntry extends Component {
       );
     }
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <DateHeader date={new Date().toLocaleDateString()} />
 
         {Object.keys(metaInfo).map((key) => {
@@ -150,7 +150,7 @@ class AddEntry extends Component {
           );
         })}
         <SubmitButton onPress={this.submit} />
-      </ScrollView>
+      </View>
     );
   }
 }
