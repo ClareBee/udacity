@@ -30,6 +30,14 @@ function UdacityStatusBar({ backgroundColor, ...props }) {
 
 const Home = () => TabNavigation();
 
+const dateTitle = (routeParams) => {
+  const { entryId } = routeParams;
+  const year = entryId.slice(0, 4);
+  const month = entryId.slice(5, 7);
+  const day = entryId.slice(8);
+  return `${month}/${day}/${year}`;
+};
+
 const TabNavigation = () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
@@ -67,7 +75,20 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="EntryDetail" component={EntryDetail} />
+          <Stack.Screen
+            name="EntryDetail"
+            component={EntryDetail}
+            options={({ route }) => ({
+              title: dateTitle(route.params),
+              headerStyle: {
+                backgroundColor: purple,
+              },
+              headerTintColor: white,
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            })}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
