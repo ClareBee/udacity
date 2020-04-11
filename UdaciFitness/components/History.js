@@ -12,10 +12,15 @@ import { timeToString, getDailyReminderValue } from "../utils/helpers";
 import { fetchCalendarResults } from "../utils/api";
 import { white } from "../utils/colours";
 import DateHeader from "./DateHeader";
+import MetricCard from "./MetricCard";
 // deprecated elements - forked version from GitHub but needs updating
 import UdaciFitnessCalendar from "udacifitness-calendar";
+import { AppLoading } from "expo";
 
 class History extends Component {
+  state = {
+    ready: false,
+  };
   componentDidMount() {
     const { dispatch } = this.props;
 
@@ -35,21 +40,34 @@ class History extends Component {
   renderItem = ({ today, ...metrics }, formattedDate, key) => (
     <View style={styles.item}>
       {today ? (
-        <Text>{JSON.stringify(today)}</Text>
+        <View>
+          <DateHeader date={formattedDate} />
+          <Text style={styles.noDataText}>{today}</Text>
+        </View>
       ) : (
-        <Text>{JSON.stringify(metrics)}</Text>
+        <TouchableOpacity onPress={() => console.log("pressed")}>
+          <MetricCard metrics={metrics} date={formattedDate} />
+        </TouchableOpacity>
       )}
     </View>
   );
   renderEmptyDate(formattedDate) {
     return (
-      <View>
-        <Text>No Data for this day</Text>
+      <View style={styles.item}>
+        <DateHeader date={formattedDate} />
+        <Text style={styles.noDataText}>
+          You didn't log any data for this day
+        </Text>
       </View>
     );
   }
   render() {
     const { entries } = this.props;
+    const { ready } = this.state;
+
+    if (ready === false) {
+      return <AppLoading />;
+    }
 
     return (
       <UdaciFitnessCalendar
@@ -61,7 +79,29 @@ class History extends Component {
   }
 }
 
-const styles = StyleSheet.create({ item: {} });
+const styles = StyleSheet.create({
+  item: {
+    backgroundColor: white,
+    borderRadius: Platform.OS === "ios" ? 16 : 2,
+    padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 17,
+    justifyContent: "center",
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: "rgba(0, 0, 0, 0.24)",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+  },
+  noDataText: {
+    fontSize: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+});
 
 function mapStateToProps(entries) {
   return {
