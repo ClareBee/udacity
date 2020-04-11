@@ -8,6 +8,7 @@ import reducer from "./reducers";
 import AddEntry from "./components/AddEntry";
 import EntryDetail from "./components/EntryDetail";
 import History from "./components/History";
+import Live from "./components/Live";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -48,9 +49,9 @@ const TabNavigation = () => (
           icon = <Ionicons name="ios-bookmarks" size={size} color={color} />;
         } else if (route.name === "AddEntry") {
           icon = <FontAwesome name="plus-square" size={size} color={color} />;
+        } else {
+          icon = <Ionicons name="ios-speedometer" size={size} color={color} />;
         }
-
-        // You can return any component that you like here!
         return icon;
       },
     })}
@@ -66,6 +67,7 @@ const TabNavigation = () => (
   >
     <Tab.Screen name="History" component={History} />
     <Tab.Screen name="AddEntry" component={AddEntry} />
+    <Tab.Screen name="Live" component={Live} />
   </Tab.Navigator>
 );
 export default function App() {
