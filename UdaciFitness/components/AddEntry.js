@@ -78,6 +78,9 @@ class AddEntry extends Component {
   submit = () => {
     const key = timeToString();
     const entry = this.state;
+    console.log(this.props);
+    this.props.navigation.navigate("History");
+
     submitEntry({ key, entry });
     //update redux
     this.props.dispatch(
@@ -103,6 +106,7 @@ class AddEntry extends Component {
       })
     );
     removeEntry(key);
+    this.props.navigation.navigate("History");
   };
 
   render() {
@@ -199,7 +203,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
+function mapStateToProps(state, { navigation }) {
   const key = timeToString();
   return {
     alreadyLogged: state[key] && typeof state[key].today === "undefined",
