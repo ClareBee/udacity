@@ -80,6 +80,7 @@ export default function App() {
             component={EntryDetail}
             options={({ route }) => ({
               title: dateTitle(route.params),
+              entryId: route.params,
               headerStyle: {
                 backgroundColor: purple,
               },
