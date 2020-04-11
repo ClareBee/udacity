@@ -17,7 +17,7 @@ export default function MetricCard({ date, metrics }) {
           backgroundColor,
         } = getMetricMetaInfo(metric);
         return (
-          <View style={style.metric} key={metric}>
+          <View style={styles.metric} key={metric}>
             {getIcon()}
             <View>
               <Text style={{ fontSize: 20 }}>{displayName}</Text>
