@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  ScrollView,
   Platform,
   StyleSheet,
   View,
@@ -12,6 +11,8 @@ import {
   getMetricMetaInfo,
   timeToString,
   getDailyReminderValue,
+  clearLocalNotification,
+  setLocalNotification,
 } from "../utils/helpers";
 import DateHeader from "./DateHeader";
 import Slider from "./Slider";
@@ -82,6 +83,7 @@ class AddEntry extends Component {
     this.props.navigation.navigate("History");
 
     submitEntry({ key, entry });
+    clearLocalNotification().then(setLocalNotification);
     //update redux
     this.props.dispatch(
       addEntry({

@@ -1,12 +1,6 @@
-// import AsyncStorage from "@react-native-community/async-storage";
-// import AsyncStorage from "react-native";
 import { AsyncStorage } from "react-native";
 
-import {
-  CALENDAR_STORAGE_KEY,
-  formtCalendarResults,
-  formatCalendarResults,
-} from "./_calendar";
+import { CALENDAR_STORAGE_KEY, formatCalendarResults } from "./_calendar";
 
 export async function submitEntry({ entry, key }) {
   try {

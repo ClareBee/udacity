@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 
-import React from "react";
+import React, { Component } from "react";
 import { Platform, StatusBar, View } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
@@ -16,6 +16,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { white, purple } from "./utils/colours";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
+import { setLocalNotification } from "./utils/helpers";
 
 const Stack = createStackNavigator();
 
@@ -70,30 +71,35 @@ const TabNavigation = () => (
     <Tab.Screen name="Live" component={Live} />
   </Tab.Navigator>
 );
-export default function App() {
-  return (
-    <Provider store={createStore(reducer)}>
-      <UdacityStatusBar backgroundColor={purple} barStyle="light-content" />
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen
-            name="EntryDetail"
-            component={EntryDetail}
-            options={({ route }) => ({
-              title: dateTitle(route.params),
-              entryId: route.params,
-              headerStyle: {
-                backgroundColor: purple,
-              },
-              headerTintColor: white,
-              headerTitleStyle: {
-                fontWeight: "bold",
-              },
-            })}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
-  );
+export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+  render() {
+    return (
+      <Provider store={createStore(reducer)}>
+        <UdacityStatusBar backgroundColor={purple} barStyle="light-content" />
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen
+              name="EntryDetail"
+              component={EntryDetail}
+              options={({ route }) => ({
+                title: dateTitle(route.params),
+                entryId: route.params,
+                headerStyle: {
+                  backgroundColor: purple,
+                },
+                headerTintColor: white,
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+              })}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 }
