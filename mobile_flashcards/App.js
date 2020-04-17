@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 import { StyleSheet, Text, View } from "react-native";
@@ -10,7 +10,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import AddDeck from "./components/AddDeck";
-
+import { setDummyData } from "./utils/_decks";
 const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -54,7 +54,7 @@ export default function App() {
           name="Deck"
           component={Deck}
           options={({ route }) => ({
-            title: dateTitle(route.params),
+            title: route.params,
             entryId: route.params,
             headerStyle: {
               backgroundColor: "blue",

@@ -1,10 +1,22 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import Deck from "./Deck";
+import { getDecks } from "../utils/api";
 
-function Decks() {
+function Decks({ navigation }) {
+  const [decks, setDecks] = useState({});
+  useEffect(() => {
+    console.log("hi there");
+    getDecks().then((decks) => setDecks(decks));
+  }, []);
   return (
     <View>
-      <Text>Decks</Text>
+      {decks &&
+        Object.keys(decks).map((deck) => (
+          <TouchableOpacity onPress={() => navigation.navigate("Deck", deck)}>
+            <Deck deck={deck} key={deck} />
+          </TouchableOpacity>
+        ))}
     </View>
   );
 }
