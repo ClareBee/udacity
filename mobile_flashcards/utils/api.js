@@ -13,6 +13,33 @@ export function getDecks() {
 }
 // getDeck by id
 
+export function getDeck(deckKey) {
+  console.log("getting deck", deckKey);
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then((results) => {
+    const data = JSON.parse(results);
+    return data[deckKey];
+  });
+}
+
 // saveDeckTitle
+export async function saveDeckTitle({ title }) {
+  const data = getDecks();
+  console.log("saved data", data);
+  try {
+    await AsyncStorage.setItem(
+      DECKS_STORAGE_KEY,
+      JSON.stringify({
+        ...data,
+        [title]: {
+          title: title,
+          questions: [],
+        },
+      })
+    );
+  } catch (e) {
+    // saving error
+    console.log("oops", e);
+  }
+}
 
 // addCardToDeck
