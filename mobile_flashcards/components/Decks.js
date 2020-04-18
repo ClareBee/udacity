@@ -1,24 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import Deck from "./Deck";
-import { getDecks } from "../utils/api";
+import { connect } from "react-redux";
+import { AppLoading } from "expo";
 
-function Decks({ navigation }) {
-  const [decks, setDecks] = useState({});
+import { getDecks } from "../utils/api";
+import { receiveDecks } from "../actions";
+
+function Decks({ navigation, dispatch, decks }) {
+  const [ready, setReady] = useState(false);
   useEffect(() => {
     console.log("hi there");
-    getDecks().then((decks) => setDecks(decks));
+    getDecks()
+      .then((decks) => dispatch(receiveDecks(decks)))
+      // .then(({ decks }) => {
+      //   if (!entries[timeToString()]) {
+      //     dispatch(
+      //       addEntry({
+      //         [timeToString()]: getDailyReminderValue(),
+      //       })
+      //     );
+      //   }
+      // })
+      .then(() => setReady(true));
   }, []);
+
+  if (ready === false) {
+    return <AppLoading />;
+  }
+  console.log("decks", decks);
   return (
     <View>
       {decks &&
         Object.keys(decks).map((deck) => (
-          <TouchableOpacity onPress={() => navigation.navigate("Deck", deck)}>
-            <Deck deck={deck} key={deck} />
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Deck", deck)}
+            key={deck}
+          >
+            <Text>{deck}</Text>
           </TouchableOpacity>
         ))}
     </View>
   );
 }
 
-export default Decks;
+function mapStateToProps(decks) {
+  return {
+    decks,
+  };
+}
+export default connect(mapStateToProps)(Decks);

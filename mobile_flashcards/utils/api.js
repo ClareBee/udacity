@@ -5,6 +5,7 @@ import { DECKS_STORAGE_KEY, formatDecks } from "./_decks";
 // getDecks
 export function getDecks() {
   console.log("getting decks", DECKS_STORAGE_KEY);
+  return AsyncStorage.removeItem(DECKS_STORAGE_KEY);
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       return formatDecks(results);
@@ -43,3 +44,6 @@ export async function saveDeckTitle({ title }) {
 }
 
 // addCardToDeck
+export function addCardToDeck({ question, answer, deckId }) {
+  console.log("adding card to deck", question, answer, deckId);
+}

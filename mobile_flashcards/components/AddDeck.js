@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
+import { connect } from "react-redux";
 import { saveDeckTitle } from "../utils/api";
+import { addDeck } from "../actions";
 
-function AddDeck({ navigation }) {
+function AddDeck({ dispatch, navigation }) {
   const [title, setTitle] = useState("");
   submit = () => {
+    // update local storage
     saveDeckTitle({ title });
+    // update redux
+    dispatch(
+      addDeck({
+        title,
+      })
+    );
+    // redirect to Decks page
     navigation.navigate("Decks");
 
-    // clearLocalNotification().then(setLocalNotification);
-    //update redux
-
+    // TODO: clearLocalNotification().then(setLocalNotification);
     setTitle("");
   };
   return (
@@ -26,4 +34,10 @@ function AddDeck({ navigation }) {
   );
 }
 
-export default AddDeck;
+function mapStateToProps(state, { navigation }) {
+  // const key = timeToString();
+  return {
+    // alreadyLogged: state[key] && typeof state[key].today === "undefined",
+  };
+}
+export default connect(mapStateToProps)(AddDeck);
