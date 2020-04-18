@@ -54,8 +54,10 @@ export default function App() {
   useEffect(() => {
     //TODO: set local notification
   });
+  const store = createStore(reducer);
+  console.log("store", store);
   return (
-    <Provider store={createStore(reducer)}>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} />

@@ -7,14 +7,11 @@ import { addDeck } from "../actions";
 function AddDeck({ dispatch, navigation }) {
   const [title, setTitle] = useState("");
   submit = () => {
+    // prevent empty submission
     // update local storage
     saveDeckTitle({ title });
     // update redux
-    dispatch(
-      addDeck({
-        title,
-      })
-    );
+    dispatch(addDeck(title));
     // redirect to Decks page
     navigation.navigate("Decks");
 
