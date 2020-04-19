@@ -36,7 +36,9 @@ function Decks({ navigation, dispatch, decks }) {
             onPress={() => navigation.navigate("Deck", deck)}
             key={deck}
           >
-            <Text>{deck}</Text>
+            <Text>
+              {deck} ({decks[deck].questions.length} cards)
+            </Text>
           </TouchableOpacity>
         ))}
     </View>

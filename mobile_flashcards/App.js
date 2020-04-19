@@ -16,6 +16,7 @@ import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import AddDeck from "./components/AddDeck";
 import AddQuestion from "./components/AddQuestion";
+import Quiz from "./components/Quiz";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,7 +56,6 @@ export default function App() {
     //TODO: set local notification
   });
   const store = createStore(reducer);
-  console.log("store", store);
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -82,6 +82,21 @@ export default function App() {
             options={({ route }) => ({
               title: "Add Question",
               deckId: route.params,
+
+              headerStyle: {
+                backgroundColor: "blue",
+              },
+              headerTintColor: "white",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            })}
+          />
+          <Stack.Screen
+            name="Quiz"
+            component={Quiz}
+            options={() => ({
+              title: "Quiz",
               headerStyle: {
                 backgroundColor: "blue",
               },

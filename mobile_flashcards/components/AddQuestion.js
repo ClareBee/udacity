@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
 import { connect } from "react-redux";
+import { CommonActions } from "@react-navigation/native";
 import { addCardToDeck } from "../utils/api";
-// import { addQuestion } from "../actions";
+import { addCardToStore } from "../actions";
 
-function AddQuestion({ dispatch, navigation }) {
+function AddQuestion({ dispatch, navigation, route }) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  console.log("route", route.params);
   submit = () => {
     // update local storage
-    addCardToDeck({ question, answer });
+    const title = route.params;
+    const card = { question, answer };
+    addCardToDeck({ card, title });
     // TODO: update redux
+    dispatch(addCardToStore(card, title));
     // redirect to Deck page
-    // navigation.navigate("Deck");
+    navigation.dispatch(CommonActions.goBack());
 
     setQuestion("");
     setAnswer("");
   };
   return (
     <View>
-      <Text>Add Deck</Text>
+      <Text>Add Question</Text>
       <TextInput
         value={question}
         onChangeText={(question) => setQuestion(question)}

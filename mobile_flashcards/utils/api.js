@@ -23,13 +23,13 @@ export function getDeck(deckKey) {
 
 // saveDeckTitle
 export async function saveDeckTitle({ title }) {
-  const data = await getDecks();
-  console.log("saved data", data);
+  const data = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+  const decks = JSON.parse(data);
   try {
     await AsyncStorage.setItem(
       DECKS_STORAGE_KEY,
       JSON.stringify({
-        ...data,
+        ...decks,
         [title]: {
           title: title,
           questions: [],
@@ -43,6 +43,22 @@ export async function saveDeckTitle({ title }) {
 }
 
 // addCardToDeck
-export function addCardToDeck({ question, answer, deckId }) {
-  console.log("adding card to deck", question, answer, deckId);
+export async function addCardToDeck({ card, title }) {
+  console.log("adding card to deck", card, title);
+  const decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+  const data = JSON.parse(decks);
+  try {
+    await AsyncStorage.setItem(
+      DECKS_STORAGE_KEY,
+      JSON.stringify({
+        ...data,
+        [title]: {
+          ...data[title],
+          questions: data[title].questions.concat([card]),
+        },
+      })
+    );
+  } catch (e) {
+    console.log("oh noes", e);
+  }
 }
