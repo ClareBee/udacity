@@ -1,52 +1,53 @@
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, Platform } from "react-native";
 import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 
-import * as Permissions from "expo-permissions";
 const NOTIFICATION_KEY = "MobileFlashcards:notifications";
 
-export function registerForPushNotifications() {
-  AsyncStorage.getItem(NOTIFICATION_KEY)
-    .then((result) => JSON.parse(result))
-    .then((data) => {
-if (Constants.isDevice) {
-      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-      let finalStatus = existingStatus;
-      if (existingStatus !== 'granted') {
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-        finalStatus = status;
-      }
-      if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
-        return;
-      }
-      token = await Notifications.getExpoPushTokenAsync();
-      console.log(token);
-      this.setState({ expoPushToken: token });
-    } else {
-      alert('Must use physical device for Push Notifications');
-    }
+export const registerForPushNotifications = async () => {
+  // notifications don't show on emulators
+  if (Constants.isDevice) {
+    AsyncStorage.getItem(NOTIFICATION_KEY)
+      .then((result) => JSON.parse(result))
+      .then((data) => {
+        if (data === null) {
+          Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+            if (status === "granted") {
+              Notifications.cancelAllScheduledNotificationsAsync();
+              let tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(20);
+              tomorrow.setMinutes(0);
+              const notificationToSend = createNotification();
+              Notifications.scheduleLocalNotificationAsync(notificationToSend, {
+                time: tomorrow,
+                repeat: "day",
+              });
 
-    if (Platform.OS === 'android') {
-      Notifications.createChannelAndroidAsync('default', {
-        name: 'default',
-        sound: true,
-        priority: 'max',
-        vibrate: [0, 250, 250, 250],
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+            }
+          });
+        }
       });
-    }
+  } else {
+    alert("Must use physical device for Push Notifications");
+  }
+
+  if (Platform.OS === "android") {
+    Notifications.createChannelAndroidAsync("default", {
+      name: "default",
+      sound: true,
+      priority: "max",
+      vibrate: [0, 250, 250, 250],
     });
-}
-export function clearLocalNotification() {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
-    Notifications.cancelAllScheduledNotificationsAsync
-  );
-}
+  }
+};
 
 function createNotification() {
   return {
-    title: "Take a Quiz!",
-    body: "👋 Don't forget to take a quiz every day to improve your skills!",
+    title: "Take a quiz!",
+    body: "👋 Don't forget to learn every day!",
     ios: {
       sound: true,
     },
