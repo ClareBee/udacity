@@ -10,19 +10,23 @@ import {
 import { connect } from "react-redux";
 import { AppLoading } from "expo";
 import CardFlip from "react-native-card-flip";
-
-function Quiz({ deck }) {
+import { CommonActions } from "@react-navigation/native";
+import { clearLocalNotification } from "../utils/helpers";
+function Quiz({ deck, navigation }) {
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [view, setView] = useState("answer");
-  const [flipCard] = useState(new Animated.Value(0));
 
   useEffect(() => {
     setQuestions(deck.questions);
     setLoading(false);
-  }, []);
+    console.log("yooooo");
+    if (progress > 0) {
+      console.log("hello there");
+      clearLocalNotification();
+    }
+  }, [progress]);
 
   if (loading === true) {
     return <AppLoading />;
@@ -46,14 +50,24 @@ function Quiz({ deck }) {
     setScore(score);
   };
 
-  const toggleView = () => {
-    if (view === "question") {
-      setView("answer");
-    } else {
-      setView("question");
-    }
+  const handleRestart = () => {
+    setProgress(0);
+    setScore(0);
   };
-
+  const scoreView = () => {
+    return (
+      <View>
+        <Text>
+          You scored {score} / {questions.length}
+        </Text>
+        <Button title={"Retake Quiz"} onPress={handleRestart} />
+        <Button
+          title={"Back to Deck"}
+          onPress={() => navigation.dispatch(CommonActions.goBack())}
+        />
+      </View>
+    );
+  };
   const questionView = () => {
     const card = questions[progress];
     return (
@@ -89,11 +103,7 @@ function Quiz({ deck }) {
         {score}/{deck.questions.length}
       </Text>
       {progress < questions.length && questionView()}
-      {progress === questions.length && (
-        <Text>
-          You scored {score} / {questions.length}
-        </Text>
-      )}
+      {progress === questions.length && scoreView()}
     </View>
   );
 }

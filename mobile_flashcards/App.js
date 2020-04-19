@@ -12,6 +12,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import { registerForPushNotifications } from "./utils/helpers";
+
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import AddDeck from "./components/AddDeck";
@@ -54,6 +56,7 @@ const TabNavigation = () => (
 export default function App() {
   useEffect(() => {
     //TODO: set local notification
+    registerForPushNotifications();
   });
   const store = createStore(reducer);
   return (
