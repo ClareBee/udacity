@@ -6,35 +6,40 @@ import { addDeck } from "../actions";
 
 function AddDeck({ dispatch, navigation }) {
   const [title, setTitle] = useState("");
+  const [error, setError] = useState(null);
   submit = () => {
     // prevent empty submission
+    if (title.trim() === "") {
+      return setError("Title cannot be empty");
+    }
     // update local storage
     saveDeckTitle({ title });
     // update redux
     dispatch(addDeck(title));
     // redirect to Decks page
     navigation.navigate("Decks");
-
-    // TODO: clearLocalNotification().then(setLocalNotification);
     setTitle("");
   };
+
+  const handleChange = (title) => {
+    setTitle(title);
+    // clear error message if needed
+    setError(null);
+  };
+
   return (
     <View>
       <Text>Add Deck</Text>
+      {error && <Text>{error}</Text>}
       <TextInput
         value={title}
-        onChangeText={(title) => setTitle(title)}
+        onChangeText={(title) => handleChange(title)}
         placeholder={"Deck Title"}
+        maxLength={40}
       />
       <Button title={"Submit"} onPress={submit} />
     </View>
   );
 }
 
-function mapStateToProps(state, { navigation }) {
-  // const key = timeToString();
-  return {
-    // alreadyLogged: state[key] && typeof state[key].today === "undefined",
-  };
-}
-export default connect(mapStateToProps)(AddDeck);
+export default connect()(AddDeck);
