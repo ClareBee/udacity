@@ -5,21 +5,21 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers";
 
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
-
 import {
-  AsyncStorage,
-  StyleSheet,
-  Vibration,
-  Platform,
-  Text,
-  View,
-  Button,
-} from "react-native";
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+
+import { StyleSheet, Platform, View, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import Constants from "expo-constants";
+
 import { registerForPushNotifications } from "./utils/helpers";
+import { primaryColour, secondaryColour, lightColour } from "./utils/colours";
+
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import AddDeck from "./components/AddDeck";
@@ -38,7 +38,9 @@ const TabNavigation = () => (
         let icon;
 
         if (route.name === "Decks") {
-          icon = <Ionicons name="ios-bookmarks" size={size} color={color} />;
+          icon = (
+            <MaterialCommunityIcons name="cards" size={size} color={color} />
+          );
         } else {
           icon = <FontAwesome name="plus-square" size={size} color={color} />;
         }
@@ -46,12 +48,12 @@ const TabNavigation = () => (
       },
     })}
     tabBarOptions={{
-      activeTintColor: Platform.OS === "ios" ? "blue" : "yellow",
+      activeTintColor: Platform.OS === "ios" ? primaryColour : lightColour,
       inactiveTintColor: "gray",
       size: 30,
       style: {
         height: 50,
-        backgroundColor: Platform.OS === "ios" ? "yellow" : "blue",
+        backgroundColor: Platform.OS === "ios" ? lightColour : primaryColour,
       },
     }}
   >
@@ -59,7 +61,13 @@ const TabNavigation = () => (
     <Tab.Screen name="AddDeck" component={AddDeck} />
   </Tab.Navigator>
 );
-
+function FlashcardStatusBar({ backgroundColor, ...props }) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  );
+}
 export default function App() {
   useEffect(() => {
     //TODO: set local notification
@@ -69,6 +77,11 @@ export default function App() {
   const store = createStore(reducer);
   return (
     <Provider store={store}>
+      <FlashcardStatusBar
+        backgroundColor={primaryColour}
+        barStyle="light-content"
+      />
+
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} />
@@ -79,9 +92,9 @@ export default function App() {
               title: route.params,
               deckId: route.params,
               headerStyle: {
-                backgroundColor: "blue",
+                backgroundColor: primaryColour,
               },
-              headerTintColor: "white",
+              headerTintColor: lightColour,
               headerTitleStyle: {
                 fontWeight: "bold",
               },
@@ -95,7 +108,7 @@ export default function App() {
               deckId: route.params,
 
               headerStyle: {
-                backgroundColor: "blue",
+                backgroundColor: secondaryColour,
               },
               headerTintColor: "white",
               headerTitleStyle: {
@@ -109,7 +122,7 @@ export default function App() {
             options={() => ({
               title: "Quiz",
               headerStyle: {
-                backgroundColor: "blue",
+                backgroundColor: secondaryColour,
               },
               headerTintColor: "white",
               headerTitleStyle: {
@@ -122,12 +135,3 @@ export default function App() {
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
