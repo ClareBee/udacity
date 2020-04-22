@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { saveDeckTitle } from "../utils/api";
+import { redColour, secondaryColour } from "../utils/colours";
 import { addDeck } from "../actions";
 
 function AddDeck({ dispatch, navigation }) {
@@ -28,18 +29,28 @@ function AddDeck({ dispatch, navigation }) {
   };
 
   return (
-    <View>
-      <Text>Add Deck</Text>
-      {error && <Text>{error}</Text>}
+    <View style={{ flex: 1, padding: 20 }}>
+      <Text style={styles.heading}>Add Deck</Text>
+      {error && <Text style={styles.error}>{error}</Text>}
       <TextInput
         value={title}
         onChangeText={(title) => handleChange(title)}
         placeholder={"Deck Title"}
         maxLength={40}
+        style={{ height: 40 }}
       />
-      <Button title={"Submit"} onPress={submit} />
+      <Button title={"Submit"} onPress={submit} color={secondaryColour} />
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  heading: {
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  error: {
+    color: redColour,
+  },
+});
 export default connect()(AddDeck);
