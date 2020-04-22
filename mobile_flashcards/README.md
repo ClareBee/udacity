@@ -17,7 +17,7 @@ To start on Expo app on Android phone:
 <img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/decks.png" width="300" alt="Home" />
 <img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/deck.png" width="300" alt="Deck"/>
 <img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/quiz.png" width="300" alt="Quiz" />
-<img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/deck.png" width="300" alt="score" />
+<img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/score.png" width="300" alt="score" />
   <img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/notification.jpg" width="400" alt="notification"/>
 </p>
   
