@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Button, TouchableOpacity, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { AppLoading } from "expo";
@@ -20,7 +20,6 @@ function Quiz({ deck, navigation }) {
   const [progress, setProgress] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const questionCard = useRef(null);
 
   useEffect(() => {
     setQuestions(deck.questions);
@@ -175,7 +174,6 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state, { route }) {
   const deck = state[route.params];
-  console.log(deck);
   return {
     deck,
   };

@@ -9,7 +9,6 @@ import { addCardToStore } from "../actions";
 function AddQuestion({ dispatch, navigation, route }) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  console.log("route", route.params);
   submit = () => {
     // update local storage
     const title = route.params;

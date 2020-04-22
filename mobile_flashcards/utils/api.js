@@ -4,7 +4,6 @@ import { DECKS_STORAGE_KEY, formatDecks } from "./_decks";
 
 // getDecks
 export function getDecks() {
-  console.log("getting decks", DECKS_STORAGE_KEY);
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       return formatDecks(results);
@@ -14,7 +13,6 @@ export function getDecks() {
 // getDeck by id
 
 export function getDeck(deckKey) {
-  console.log("getting deck", deckKey);
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then((results) => {
     const data = JSON.parse(results);
     return data[deckKey];
@@ -55,7 +53,6 @@ export async function saveDeckTitle({ title }) {
 
 // addCardToDeck
 export async function addCardToDeck({ card, title }) {
-  console.log("adding card to deck", card, title);
   const decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
   const data = JSON.parse(decks);
   try {

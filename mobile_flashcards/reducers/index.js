@@ -8,7 +8,6 @@ import {
 function decks(state = {}, action) {
   switch (action.type) {
     case RECEIVE_DECKS:
-      console.log(action, state);
       return {
         ...action.decks,
       };
@@ -22,7 +21,6 @@ function decks(state = {}, action) {
       };
     case ADD_CARD_TO_DECK:
       const { title, card } = action;
-      console.log("title and card", title, card);
       return {
         ...state,
         [title]: {

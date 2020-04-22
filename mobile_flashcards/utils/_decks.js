@@ -29,7 +29,6 @@ export const setDummyData = () => {
     },
   };
   const data = JSON.stringify(dummyData);
-  console.log("data", data);
   AsyncStorage.setItem(DECKS_STORAGE_KEY, data);
 
   return data;
