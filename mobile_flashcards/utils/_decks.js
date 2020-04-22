@@ -35,13 +35,14 @@ export const setDummyData = () => {
   return data;
 };
 
-function setMissingInfo(decks) {
-  // TODO add pass/fail?
-  return decks;
+function setDecks(decks) {
+  return JSON.parse(decks);
 }
 export function formatDecks(results) {
-  console.log("results", results);
-  return results === null
-    ? setDummyData()
-    : setMissingInfo(JSON.parse(results));
+  return results === null ? setDummyData() : setDecks(results);
+}
+
+// for testing purposes
+function clearDecks() {
+  AsyncStorage.removeItem(DECKS_STORAGE_KEY);
 }
