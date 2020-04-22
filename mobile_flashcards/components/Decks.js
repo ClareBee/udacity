@@ -26,7 +26,7 @@ function Decks({ navigation, dispatch, decks }) {
       .then(() => setReady(true));
   }, []);
 
-  if (ready === false || decks === undefined) {
+  if (ready === false || decks === {}) {
     return <AppLoading />;
   }
 

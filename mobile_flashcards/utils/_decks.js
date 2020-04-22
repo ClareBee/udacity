@@ -28,10 +28,9 @@ export const setDummyData = () => {
       ],
     },
   };
-  const data = JSON.stringify(dummyData);
-  AsyncStorage.setItem(DECKS_STORAGE_KEY, data);
+  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(dummyData));
 
-  return data;
+  return dummyData;
 };
 
 function setDecks(decks) {
