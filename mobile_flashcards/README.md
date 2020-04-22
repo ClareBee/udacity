@@ -14,11 +14,11 @@ To start on Expo app on Android phone:
 - AsyncStorage for local notifications and data storage
 
 <p style="float: left;">
-<img src="decks.png" width="400" alt="Home" />
-<img src="deck.png" width="400" alt="Deck"/>
-<img src="notification.jpg" width="400" alt="notification"/>
-<img src="quiz.png" width="400" alt="Quiz" />
-<img src="score.png" width="400" alt="score" />
+<img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/decks.png" width="300" alt="Home" />
+<img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/deck.png" width="300" alt="Deck"/>
+<img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/quiz.png" width="300" alt="Quiz" />
+<img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/deck.png" width="300" alt="score" />
+  <img src="https://github.com/ClareBee/udacity/blob/master/mobile_flashcards/assets/notification.jpg" width="400" alt="notification"/>
 </p>
   
   
