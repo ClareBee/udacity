@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
   Platform,
@@ -27,7 +26,7 @@ function Decks({ navigation, dispatch, decks }) {
       .then(() => setReady(true));
   }, []);
 
-  if (ready === false) {
+  if (ready === false || decks === undefined) {
     return <AppLoading />;
   }
 
@@ -50,7 +49,7 @@ function Decks({ navigation, dispatch, decks }) {
     });
   };
   return (
-    <View>
+    <View style={{ flex: 1, padding: 20 }}>
       {decks &&
         Object.keys(decks).map((deck) => (
           <TouchableOpacity onPress={(e) => handleClick(e, deck)} key={deck}>

@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  View,
-  Text,
-  Button,
-  Animated,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Button, TouchableOpacity, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { AppLoading } from "expo";
 import CardFlip from "react-native-card-flip";
@@ -15,6 +8,13 @@ import {
   clearLocalNotification,
   registerForPushNotifications,
 } from "../utils/helpers";
+import {
+  redColour,
+  primaryColour,
+  secondaryColour,
+  accentColour,
+  lightColour,
+} from "../utils/colours";
 function Quiz({ deck, navigation }) {
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -28,7 +28,6 @@ function Quiz({ deck, navigation }) {
     setLoading(false);
     // cancel local notification if quiz completed
     if (progress > 0 && progress === questions.length) {
-      console.log("yooooo", progress, questions.length);
       clearLocalNotification().then(registerForPushNotifications);
     }
   }, [progress]);
@@ -64,18 +63,25 @@ function Quiz({ deck, navigation }) {
 
   const showNextQuestion = () => {
     // reset card to show question
-    card.flip();
+    if (card.state.side === 1) {
+      card.flip();
+    }
   };
   const scoreView = () => {
     return (
-      <View>
-        <Text>
+      <View style={{ padding: 20 }}>
+        <Text style={styles.result}>
           You scored {score} / {questions.length}
         </Text>
-        <Button title={"Retake Quiz"} onPress={handleRestart} />
+        <Button
+          title={"Retake Quiz"}
+          onPress={handleRestart}
+          color={secondaryColour}
+        />
         <Button
           title={"Back to Deck"}
           onPress={() => navigation.dispatch(CommonActions.goBack())}
+          color={primaryColour}
         />
       </View>
     );
@@ -83,7 +89,10 @@ function Quiz({ deck, navigation }) {
   const questionView = () => {
     const card = questions[progress];
     return (
-      <View>
+      <View style={{ padding: 20 }}>
+        <Text style={styles.score}>
+          {score}/{deck.questions.length}
+        </Text>
         <Text>Tap the card to show the answer!</Text>
         <CardFlip
           style={styles.cardContainer}
@@ -92,28 +101,28 @@ function Quiz({ deck, navigation }) {
           <TouchableOpacity
             style={styles.card}
             onPress={() => this.card.flip()}
+            value="question"
           >
-            <Text>Question: {card.question}</Text>
+            <Text style={styles.question}>Question: {card.question}</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.card}
+            style={styles.cardAnswer}
             onPress={() => this.card.flip()}
+            value="answer"
           >
-            <Text>Answer: {card.answer}</Text>
+            <Text style={styles.answer}>Answer: {card.answer}</Text>
           </TouchableOpacity>
         </CardFlip>
-        <Button title={"Correct"} onPress={markCorrect} />
-        <Button title={"Incorrect"} onPress={markIncorrect} />
+        <Button title={"Correct"} onPress={markCorrect} color={accentColour} />
+        <Button title={"Incorrect"} onPress={markIncorrect} color={redColour} />
       </View>
     );
   };
 
   return (
-    <View>
-      <Text>Quiz for {deck.title}</Text>
-      <Text>
-        {score}/{deck.questions.length}
-      </Text>
+    <View style={{ flex: 1, padding: 20 }}>
+      <Text style={styles.heading}>Quiz for {deck.title}</Text>
+
       {progress < questions.length && questionView()}
       {progress === questions.length && scoreView()}
     </View>
@@ -121,13 +130,46 @@ function Quiz({ deck, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  heading: {
+    fontWeight: "bold",
+  },
+  score: {
+    padding: 20,
+    borderColor: redColour,
+    borderRadius: 3,
+    borderWidth: 1,
+  },
+  result: {
+    padding: 20,
+    borderColor: accentColour,
+    borderRadius: 3,
+    borderWidth: 1,
+    marginBottom: 20,
+  },
+  question: {
+    color: lightColour,
+  },
+  answer: {
+    color: primaryColour,
+  },
   card: {
-    height: 80,
-    backgroundColor: "blue",
+    height: 150,
+    padding: 8,
+    backgroundColor: primaryColour,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cardAnswer: {
+    height: 150,
+    padding: 8,
+    backgroundColor: accentColour,
+    alignItems: "center",
+    justifyContent: "center",
   },
   cardContainer: {
-    height: 100,
-    backgroundColor: "red",
+    height: 150,
+    backgroundColor: secondaryColour,
+    marginBottom: 20,
   },
 });
 
